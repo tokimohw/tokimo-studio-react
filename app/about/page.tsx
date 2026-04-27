@@ -25,7 +25,7 @@ export default function AboutPage() {
       <section className="philosophy-grid">
         <div className="philo-block reveal" data-speed="0.05"> 
           <div className="philo-image">
-            <img src="/images/all_mood/jp_street1.jpeg" alt="TOKIMO Brand Philosophy" />
+            <img src="/images/all_mood/jp_street1.webp" alt="TOKIMO Brand Philosophy" />
           </div>
 
           <div className="philo-text">
