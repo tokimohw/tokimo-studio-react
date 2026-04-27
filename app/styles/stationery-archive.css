@@ -1,0 +1,88 @@
+/* --- Stationery & Storytelling 통합 스타일 --- */
+
+header, footer:not(.stat-footer) { display: none !important; }
+
+:root {
+  --bg: #f2f0eb; /* 미색지 톤 */
+  --text: #1a1a1a;
+  --accent: #ff4d00;
+  --line: rgba(0,0,0,0.1);
+}
+
+.stat-container {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', 'Pretendard', sans-serif;
+  transition: opacity 0.4s ease;
+}
+
+.stat-container.is-switching { opacity: 0; }
+
+/* 시니어의 한 끗: 종이 질감과 노이즈 */
+.noise-overlay {
+  position: fixed; inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png'); /* 미세한 결 */
+  opacity: 0.05; pointer-events: none; z-index: 9999;
+}
+
+/* Nav */
+.stat-nav {
+  padding: 30px 4vw; display: flex; justify-content: space-between;
+  border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 100;
+}
+
+.lang-switcher span { 
+  font-size: 10px; margin-right: 15px; cursor: pointer; opacity: 0.3; 
+}
+.lang-switcher span.active { opacity: 1; font-weight: bold; text-decoration: underline; }
+
+.tech-spec { font-family: monospace; font-size: 10px; opacity: 0.5; }
+
+/* Hero */
+.stat-hero {
+  height: 80vh; display: flex; align-items: center; padding: 0 4vw; position: relative;
+  border-bottom: 1px solid var(--line);
+}
+
+.manifesto-label { font-size: 11px; color: var(--accent); letter-spacing: 0.3em; margin-bottom: 20px; }
+.manifesto-title { font-size: clamp(40px, 8vw, 120px); font-weight: 900; line-height: 0.9; letter-spacing: -0.04em; }
+.italic-text { font-family: serif; font-style: italic; font-weight: 300; }
+
+/* Archive Grid */
+.archive-section { padding: 80px 4vw; }
+.section-label { font-size: 10px; letter-spacing: 0.5em; opacity: 0.4; margin-bottom: 40px; }
+
+.archive-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 60px 20px; }
+.archive-card.layout-wide { grid-column: span 8; }
+.archive-card.layout-tall { grid-column: span 4; }
+.archive-card.layout-small { grid-column: span 3; }
+
+.img-container { 
+  width: 100%; aspect-ratio: 4/5; position: relative; background: #e8e8e8; overflow: hidden;
+}
+.id-tag { position: absolute; top: 15px; left: 15px; font-size: 10px; background: #fff; padding: 2px 6px; }
+
+.card-meta { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 15px; }
+.meta-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+.meta-row .label { opacity: 0.4; }
+
+/* Anatomy Storytelling (New) */
+.anatomy-section { padding: 100px 4vw; background: #fff; border-top: 1px solid var(--line); }
+.anatomy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+
+.anatomy-col h3 { font-size: 30px; margin-bottom: 20px; }
+.code-block { background: #f8f8f8; padding: 30px; font-family: monospace; border-left: 3px solid var(--accent); margin-bottom: 20px; }
+.texture-visual { width: 100%; height: 200px; background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); opacity: 0.1; border: 1px solid var(--line); margin-bottom: 20px; }
+
+/* Footer */
+.stat-footer { padding: 100px 4vw; border-top: 1px solid var(--line); }
+.f-top { display: flex; justify-content: space-between; align-items: flex-end; }
+.f-logo-big { font-size: 15vw; font-weight: 900; letter-spacing: -0.05em; line-height: 0.8; }
+.f-info { text-align: right; font-size: 12px; opacity: 0.5; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .archive-grid { grid-template-columns: 1fr; }
+  .archive-card { grid-column: span 1 !important; }
+  .anatomy-grid { grid-template-columns: 1fr; }
+}

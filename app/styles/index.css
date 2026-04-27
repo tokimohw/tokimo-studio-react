@@ -1,0 +1,1235 @@
+/* ==========================================================================
+   [TOKIMO] INTEGRATED STYLE SYSTEM - FULL REFINED
+   ========================================================================= */
+
+/* =========================
+   01. Base / Reset
+========================= */
+:root {
+  --font-main: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+  --font-sub: 'Georgia', serif;
+  --font-mono: 'Courier New', monospace;
+  --transition-vogue: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-heavy: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  background: #fff;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.main-index {
+  padding-top: 100px;
+}
+
+/* =========================
+   02. Hero Section
+========================= */
+.hero-container.full-width {
+  max-width: 100%;
+  padding: 0;
+}
+
+.hero-main-img {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-main-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+  z-index: 2;
+}
+
+.hero-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-slider .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1), transform 5s ease-out;
+  filter: brightness(0.6) contrast(1.1);
+}
+
+.hero-slider .slide.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  font-family: var(--font-main);
+  font-size: 15vw;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* hero 안 쪽 텍스트 */
+.hero-title-wrap {
+  position: absolute;
+  top: 45%; /* 기존 40%에서 살짝 내려 안정감 확보 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.cover-title {
+  /* 폰트 크기를 기존보다 약 30~40% 축소 (최대 10rem -> 6rem) */
+  font-size: clamp(2.8rem, 5.5vw, 6rem); 
+  font-family: var(--font-main);
+  color: #f1f1f1;
+  line-height: 0.95;
+  letter-spacing: -0.04em; /* 글자 간격을 좁혀 밀도감 형성 */
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.cover-title em {
+  display: block; /* 줄바꿈 효과를 위해 블록화 */
+  font-family: var(--font-sub);
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none; /* em 부분은 소문자 이탈릭으로 대비 */
+  opacity: 0.8;
+  letter-spacing: 0.02em;
+  margin-top: 5px;
+}
+
+.cover-sub-title {
+  font-size: 18px;
+  font-family: var(--font-main);
+  color: #f1f1f1;
+  line-height: 0.95;
+  letter-spacing: -0.04em; /* 글자 간격을 좁혀 밀도감 형성 */
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.hero-description {
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  line-height: 1.8;
+  color: #f1f1f1;
+  opacity: 0.6; /* 시선을 제목으로 유도하기 위해 투명도 조절 */
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  margin-bottom: 15px;
+  word-break: keep-all;
+}
+
+.hero-role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #fff;
+  opacity: 0.4;
+  margin-top: 20px;
+}
+
+.hero-description .kr-sub,
+.hero-description .jp-sub {
+  color: #f1f1f1;
+}
+
+/* 슬라이더 컨트롤러 */
+.hero-dots {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  gap: 15px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: var(--transition-vogue);
+}
+
+.dot.active {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+/* 사이드 메타 */
+.hero-side-meta {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.meta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  writing-mode: vertical-rl;
+}
+
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 10px;
+}
+
+.meta-value {
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.side-jp {
+  font-size: 10px; 
+  opacity: 0.8;
+}
+
+/* =========================
+   03. Mood Archive (Collage)
+========================= */
+.mood-archive-wrap {
+  width: 100%;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.archive-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 130vh;
+  margin: 0 auto;
+}
+
+@media (hover: hover) {
+  .archive-container:hover .mood-archive-item:not(:hover) {
+    filter: grayscale(100%) blur(3px);
+    opacity: 0.4;
+    transform: scale(0.97);
+  }
+}
+
+.mood-archive-item {
+  position: absolute;
+  /* overflow: hidden; */
+  transition: var(--transition-heavy);
+  will-change: transform, filter;
+}
+
+.mood-archive-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s ease;
+  display: block;
+}
+
+.mood-archive-item:hover {
+  transform: translateY(-20px) scale(1.03) !important;
+  z-index: 100 !important;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+}
+
+.item-lg { width: 35vw; height: 48vw; top: 5%; left: 5%; z-index: 2; }
+.item-sm {width: 20vw;height: 28vw;top: 3%;right: 8%;z-index: 4;}
+.item-md.overlap-right {width: 30vw;height: 40vw;top: 25%;left: 35%;z-index: 1;}
+.item-sm-square {width: 22vw;height: 30vw;bottom: 0%;left: 10%;z-index: 5;}
+.item-tall {width: 25vw;/* height: 45vw; */bottom: 0%;right: 7%;z-index: 3;}
+
+/* 이미지 하단 텍스트 */
+.img-meta {
+  position: absolute;
+  bottom: -25px; /* 이미지 아래쪽으로 25px 내림 */
+  left: 0;
+  width: 100%;
+  z-index: 10; /* 이미지보다 위에 오도록 */
+  
+  /* 텍스트 스타일 */
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-main);
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+/* =========================
+   04. About
+========================= */
+.about-section {
+  padding: 140px 0;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  max-width: 580px;
+}
+
+.about-left {margin-bottom: 20px;}
+
+
+/* =========================
+   05. Lookbook Section
+========================= */
+.lookbook-section {
+  padding: 160px 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.lookbook-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.lookbook-visual {
+  position: relative;
+  display: flex;
+  align-items: flex-end; /* 텍스트를 이미지 하단 라인에 맞춤 */
+  gap: 40px;
+}
+
+.visual-img-wrap {
+  position: relative;
+  width: 70%; /* 이미지 비중 */
+  height: 80vh; /* 화면 높이에 맞춘 유연한 높이 */
+  overflow: hidden;
+}
+
+.visual-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.2);
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lookbook-visual:hover img {
+  transform: scale(1.05);
+}
+
+/* 텍스트 컨테이너: 이미지 위에 반쯤 걸치는 에디토리얼 배치 */
+.editorial-text-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 10%;
+  z-index: 10;
+  text-align: right;
+  pointer-events: none;
+}
+
+/* 룩북 센션 텍스트 */
+.editorial-title {
+  color: #3d3a38; /* 잉크 느낌의 웜 블랙 */
+  font-size: clamp(4rem, 9.5vw, 8.5rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.06em; /* 더 과감하게 좁힘 */
+  text-transform: uppercase;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  transform: rotate(-1deg); /* 의도된 불균형 */
+}
+
+.editorial-title em {
+  color: #928d88; /* 배경에 묻히는 연한 갈색빛 그레이 */
+  font-family: var(--font-sub);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.4em;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  display: block;
+  margin-top: 5px;
+}
+
+/* 호버 시에만 살짝 선명해지는 효과 */
+.lookbook-visual:hover .editorial-title {
+  opacity: 1;
+  color: #333333;
+  transition: all 1s ease;
+}
+
+.editorial-desc {
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  line-height: 1.8;
+  color: #555;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* 하단 메타 정보 영역 */
+.lookbook-meta-info {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #999;
+  letter-spacing: 0.15em;
+}
+
+.meta-slash {
+  opacity: 0.3;
+}
+
+/* =========================
+   06. Project Grid (Restored Details)
+========================= */
+
+.container {
+  max-width: 1400px;
+  margin: 0 50px;
+}
+
+.project-grid-section {
+  padding: 160px 0;
+  background-color: #fff;
+}
+
+.project-header {
+  margin-bottom: 60px;
+}
+
+.p-section-title {
+  font-size: 3rem;
+  font-family: var(--font-main);
+  margin-bottom: 15px;
+}
+
+.p-section-desc {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.p-section-note {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 40px;
+}
+
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 120px 80px;
+}
+
+.archive-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.archive-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/11;
+  overflow: hidden;
+  margin-bottom: 30px;
+  background: #1a1a1a;
+}
+
+.archive-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-item:hover img {
+  filter: grayscale(0);
+  transform: scale(1.04);
+}
+
+.project-overlay-info {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  backdrop-filter: blur(5px);
+  transition: opacity 0.6s ease;
+  color: #fff;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+.archive-item:hover .project-overlay-info {
+  opacity: 1;
+}
+
+.archive-info h3 {
+  font-size: 1.8rem;
+  font-family: var(--font-main);
+  font-style: italic;
+  margin-bottom: 15px;
+  color: #111;
+}
+
+.archive-info p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #666;
+  font-weight: 300;
+  word-break: keep-all;
+}
+
+/* restored: role and tech tags */
+.p-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #999;
+  margin-bottom: 10px;
+  letter-spacing: 0.1em;
+}
+
+.p-role {
+  margin-top: 15px;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  letter-spacing: 0.03em;
+}
+
+.p-tech-tags {
+  margin-top: 12px;
+  display: flex;
+  gap: 15px;
+}
+
+.p-tech-tags span {
+  font-size: 11px;
+  color: #888;
+}
+
+.p-tech-tags span:not(:last-child)::after {
+  content: '•';
+  margin-left: 12px;
+  opacity: 0.3;
+}
+
+/* =========================
+   07. Services (Restored Details)
+========================= */
+.services-section {
+  padding: 160px 0;
+  border-top: 1px solid #eee;
+}
+
+.services-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* restored: "SERVICE" label */
+.services-container::before {
+  content: "SERVICE";
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+  margin-bottom: 15px;
+}
+
+.services-desc {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.services-proof {
+  margin-bottom: 40px;
+  font-size: 0.95rem;
+  opacity: 0.5;
+}
+
+.services-list {
+  list-style: none;
+}
+
+.services-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: transform 0.3s ease;
+}
+
+.services-list li:hover {
+  transform: translateX(10px);
+}
+
+.service-title {
+  font-size: 1.1rem;
+  color: #111;
+}
+
+.service-sub {
+  opacity: 0.4;
+  font-size: 0.85rem;
+}
+
+.services-cta {
+  margin-top: 40px;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  font-style: italic;
+  color: #666;
+}
+
+.jp-svi {
+  margin-bottom: 30px;
+}
+
+
+/* ==========================================================================
+    PROCESS SECTION (협업 프로세스)
+   ========================================================================== */
+.process-section {
+  padding: clamp(80px, 10vw, 140px) 0; /* 반응형 패딩 */
+  background-color: #fff;
+  overflow: hidden; /* 숫자 삐져나감 방지 */
+}
+
+.process-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 6%;
+}
+
+.process-grid {
+  display: grid;
+  /* 1053px 부근에서 3열이 너무 좁다면 1fr로 떨어지게 하거나 간격을 조절해야 합니다 */
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(30px, 4vw, 60px); /* 간격도 화면에 따라 유연하게 */
+  margin-top: 80px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 60px;
+}
+
+.process-card {
+  position: relative;
+  height: auto; /* 고정 높이 절대 금지 */
+  display: flex;
+  flex-direction: column;
+}
+
+.process-num {
+  font-family: var(--font-sub);
+  font-style: italic;
+  font-size: clamp(4rem, 8vw, 6rem); /* 숫자 크기 유연하게 */
+  line-height: 0.8;
+  color: #f0f0f0;
+  position: absolute;
+  top: -30px;
+  left: -10px;
+  z-index: 0;
+  user-select: none;
+}
+
+.process-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  word-break: keep-all;
+}
+
+.process-detail {
+  font-size: 0.95rem;
+  line-height: 1.8; /* 일어를 위해 약간 더 넓힘 */
+  color: #555;
+  position: relative;
+  z-index: 1;
+  word-break: keep-all; /* 한국어용 */
+}
+
+/* --- 일본어(JP) 환경에서만 적용되는 미세 조정 --- */
+html[lang="jp"] .process-detail {
+  word-break: break-all; /* 일어 문장이 박스를 뚫는 것 방지 */
+  line-height: 1.9; /* 일어 특유의 답답함 해소 */
+  font-feature-settings: "palt"; /* 일본어 자간 최적화 */
+}
+
+/* ==========================================================================
+   FAQ & STATUS SECTION (질의응답 및 상태)
+   ========================================================================== */
+.faq-status-section {
+  padding: 100px 0 160px;
+  background-color: #f8f8f8; /* 아주 미세한 톤 차이로 환기 */
+}
+
+.faq-status-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 6%;
+  display: flex;
+  gap: 100px;
+  align-items: flex-start;
+}
+
+/* 좌측 Status Panel (티켓 디자인) */
+.status-panel {
+  flex: 1;
+  position: sticky;
+  top: 120px; /* 스크롤 시 따라오게 하여 지속적인 CTA 유도 */
+}
+
+.status-ticket {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 50px 40px;
+  border-radius: 4px;
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #3d3a38;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(61, 58, 56, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(61, 58, 56, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(61, 58, 56, 0); }
+}
+
+.ticket-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+.ticket-title {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 40px;
+}
+
+.ticket-title em {
+  font-family: var(--font-sub);
+  font-style: italic;
+  font-weight: 300;
+  color: #8a847e;
+}
+
+.ticket-meta {
+  border-top: 1px dashed rgba(0,0,0,0.1);
+  border-bottom: 1px dashed rgba(0,0,0,0.1);
+  padding: 20px 0;
+  margin-bottom: 40px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.meta-row:last-child { margin-bottom: 0; }
+
+.status-btn {
+  display: block;
+  text-align: center;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 18px;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  transition: background 0.3s ease;
+}
+
+.status-btn:hover { background: #3d3a38; }
+
+/* 우측 FAQ Panel */
+.faq-panel {
+  flex: 1.5;
+}
+
+.faq-header { margin-bottom: 60px; }
+
+.faq-item {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding: 30px 0;
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.faq-q {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.faq-a {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #666;
+  word-break: keep-all;
+}
+
+
+/* CTA 섹션 */
+/* =========================
+   EDITORIAL CTA (감성형 CTA)
+========================= */
+
+.cta-editorial {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 915px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.cta-jp {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  margin-bottom: 20px;
+}
+
+.cta-main {
+  font-family: var(--font-main);
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.cta-sub {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-bottom: 40px;
+}
+
+/* 핵심: 버튼 대신 링크 */
+.cta-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  color: #111;
+  position: relative;
+}
+
+/* underline animation */
+.cta-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 1px;
+  background: #111;
+  transition: width 0.4s ease;
+}
+
+.cta-link:hover::after {
+  width: 100%;
+}
+
+.jp-cta {
+  font-size: 14px; 
+  color: #666; 
+  margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (모바일 최적화)
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .process-grid {
+    gap: 40px;
+    grid-template-columns: repeat(3, 1fr); /* 일단 3열 유지 */
+  }
+}
+
+@media (max-width: 1024px) {
+  .process-grid {
+    grid-template-columns: 1fr; /* 태블릿부터 세로로 전환하여 가독성 확보 */
+    gap: 50px;
+  }
+  
+  .faq-status-container {
+    flex-direction: column;
+    gap: 80px;
+  }
+  
+  .status-panel {
+    width: 100%;
+    position: static; /* 스티키 해제 */
+  }
+}
+
+@media (max-width: 768px) {
+  .process-section { padding: 100px 0; }
+  .faq-status-section { padding: 80px 0 120px; }
+  
+  .process-num {
+    font-size: 4.5rem;
+    top: -25px;
+  }
+  
+  .ticket-title { font-size: 1.8rem; }
+  .faq-q { font-size: 1.1rem; }
+}
+
+
+/* =========================
+   08. Responsive System
+========================= */
+
+/* 🔍 문제의 1160px 근처 해상도 집중 보정 */
+@media (max-width: 1200px) {
+  /* 무드 섹션 */
+  .archive-container {
+    height: 125vh; /* 화면이 낮아지면 컨테이너 높이도 축소 */
+  }
+  
+  /* 이미지들이 서로 더 겹치도록(Overlap) 위치 재조정 */
+  .item-lg { width: 38vw; left: 2%; }
+  .item-md.overlap-right {width: 35vw;left: 32%;top: 25%;}
+  .item-sm {width: 22vw;right: 5%;}
+  .item-tall {width: 28vw !important;right: 2%;bottom: 0%;}
+
+  /* 룩북 섹션 */
+  .visual-img-wrap {
+    width: 65%; /* 이미지를 살짝 줄여 여백 확보 */
+    height: 70vh; 
+  }
+
+  .editorial-text-wrap {
+    bottom: 15%; /* 텍스트를 위로 살짝 올려 시인성 확보 */
+    right: 2%;
+  }
+
+  .editorial-title {
+    font-size: clamp(4rem, 8.5vw, 7rem); /* 폰트 크기 미세 축소 */
+    letter-spacing: -0.05em;
+  }
+}
+
+/* 태블릿~모바일 전환 구간 (간격 벌어짐 방지) */
+@media (max-width: 900px) {
+  /* 무드 섹션 */
+  .archive-container {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 0 5%;
+  }
+  
+  .mood-archive-item {
+    position: relative !important;
+    /* top: auto !important; */
+    /* left: auto !important; */
+    /* right: auto !important; */
+    /* bottom: auto !important; */
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3/4; /* 일관된 비율 유지 */
+  }
+  
+  .item-sm-square {aspect-ratio: 3/4;}
+
+  .item-tall {width: 28vw !important;right: 2%;}
+
+  /* 룩북 섹션 */
+  .lookbook-section {
+    padding: 100px 0;
+  }
+
+  .lookbook-visual {
+    flex-direction: column; /* 여기서부터 세로 배치로 전환 */
+    align-items: flex-start;
+    gap: 35px;
+  }
+
+  .visual-img-wrap {
+    width: 100%; /* 이미지가 가로를 꽉 채움 */
+    height: 50vh;
+  }
+
+  .editorial-text-wrap {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    text-align: left; /* 왼쪽 정렬로 전환 */
+    transform: none; /* 회전 해제하여 안정감 부여 */
+    padding-left: 0;
+  }
+
+  .editorial-title {
+    font-size: 4.5rem;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    transform: rotate(-0.5deg); /* 아주 미세한 느낌만 유지 */
+    mix-blend-mode: normal; /* 배경색이 바뀌는 지점이므로 안전하게 normal */
+  }
+
+  .editorial-title em {
+    font-size: 0.45em;
+    margin-top: 5px;
+  }
+
+  .editorial-desc {
+    text-align: left;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .lookbook-meta-info {
+    margin-top: 40px;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+
+  /* process */
+  .process-grid {
+    grid-template-columns: 1fr; /* 모바일/태블릿에선 1열로 전환하여 쾌적함 확보 */
+    gap: 80px; /* 세로 간격 확보 */
+  }
+}
+
+@media (max-width: 1024px) {
+  /* 무드 섹션 */
+  .archive-container {
+    height: 110vh;
+  }
+
+  .archive-grid {
+    gap: 80px 40px;
+  }
+
+  /* 룩북 섹션 */
+  .lookbook-section {
+    padding: 120px 0;
+  }
+
+  .visual-img-wrap {
+    width: 75%; /* 다시 이미지를 키우되 텍스트가 더 많이 겹치게 설정 */
+    height: 60vh;
+  }
+
+  .editorial-text-wrap {
+    bottom: 5%;
+    right: 0;
+  }
+
+  .editorial-title {
+    font-size: 6rem;
+    transform: rotate(-0.8deg); /* 회전 반경 축소 */
+  }
+
+  .editorial-desc {
+    font-size: 0.95rem;
+    margin-left: auto; /* 우측 정렬 유지 */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .hero-title-wrap {
+    top: 50%; /* 모바일에서는 정중앙 배치 */
+  }
+  
+  .cover-title {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    letter-spacing: -0.02em;
+  }
+  
+  .cover-sub-title {
+      font-size: 15px;
+      letter-spacing: -0.02em;
+  }
+
+  .hero-description {
+    font-size: 0.85rem;
+    padding: 0 10%;
+  }
+
+  .hero-side-meta {
+    display: none;
+  }
+
+  /* Mood Archive Mobile */
+  .archive-container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+  }
+
+  .mood-archive-item {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin-bottom: 50px;
+  }
+
+  .item-lg,
+  .item-sm,
+  .item-md,
+  .item-sm-square,
+  .item-tall {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 0 40px 0 !important;
+  }
+
+  .mood-archive-item img {
+    aspect-ratio: 4/5;
+  }
+
+  /* Project Grid Mobile */
+  .archive-grid {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .archive-img-wrap {
+    aspect-ratio: 1/1;
+  }
+
+  /* Lookbook Mobile */
+  .lookbook-section {
+    padding: 80px 0; /* 모바일은 상하 여백을 약간 축소 */
+  }
+
+  .lookbook-visual {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+
+  .visual-img-wrap {
+    width: 100%;
+    height: 55vh; /* 모바일 화면의 절반 이상을 차지하도록 설정 */
+  }
+
+  .editorial-text-wrap {
+    position: relative; /* 모바일에서는 이미지 아래로 배치 */
+    right: auto;
+    bottom: auto;
+    text-align: left;
+    margin-top: 20px;
+    padding-left: 5px; /* 미세한 회전 시 글자가 잘리지 않도록 여백 확보 */
+  }
+
+  .editorial-title {
+    /* 모바일에서는 폰트 크기를 고정(3.2rem)하거나 더 좁은 범위의 clamp 사용 */
+    font-size: clamp(3rem, 14vw, 4rem); 
+    line-height: 0.85; /* 모바일 가독성을 위해 아주 살짝 넓힘 */
+    letter-spacing: -0.03em; /* 모바일은 자간을 조금 풀어주어야 뭉쳐 보이지 않음 */
+    
+    /* 회전 효과 유지하되 모바일에선 조금 더 안정적으로 (-0.5deg) */
+    transform: rotate(-0.5deg); 
+    transform-origin: left center;
+    
+    /* 배경 톤과 맞춘 잉크 블랙 유지 */
+    color: #3d3a38;
+    mix-blend-mode: normal; /* 모바일 브라우저 성능 및 가독성을 위해 multiply 해제 권장 (선택사항) */
+    opacity: 1; /* 모바일은 기본적으로 선명하게 노출 */
+  }
+
+  .editorial-title em {
+    font-size: 0.45em; /* em 비율은 살짝 키워서 존재감 부여 */
+    margin-top: 8px;
+    letter-spacing: 0.01em;
+    color: #8a847e;
+  }
+
+  .editorial-desc {
+    font-size: 0.9rem;
+    margin-top: 15px;
+    line-height: 1.7;
+    opacity: 0.7;
+    word-break: keep-all; /* 한글/영문 단어 잘림 방지 */
+  }
+
+  .lookbook-meta-info {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.05); /* 경계선 추가로 구분감 확보 */
+    flex-direction: row; /* 메타 정보는 가로로 유지하거나 상황에 따라 column */
+    justify-content:间;
+    width: 100%;
+  }
+}

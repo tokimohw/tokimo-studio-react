@@ -1,0 +1,144 @@
+.header {display: none;}
+
+/* ===================== [TOKIMO x 1LDK STYLE] ===================== */
+:root {
+  --ldk-bg: #ffffff;
+  --ldk-fg: #000000;
+  --ldk-border: #f0f0f0;
+  --ldk-gray: #999999;
+  --font-base: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--ldk-bg); color: var(--ldk-fg); font-family: var(--font-base); -webkit-font-smoothing: antialiased; }
+
+/* Top Bar */
+.ldk-top-bar {
+  display: flex; justify-content: space-between; padding: 12px 20px;
+  border-bottom: 1px solid var(--ldk-border); font-size: 10px; letter-spacing: 0.05em;
+}
+.ldk-lang-switcher button, .ldk-user-nav button {
+  margin-right: 15px; color: var(--ldk-gray); transition: color 0.3s; background: none; border: none; cursor: pointer;
+}
+.ldk-lang-switcher button.active, .ldk-user-nav button:hover { color: var(--ldk-fg); }
+
+/* Header & Nav */
+.ldk-header { padding: 40px 20px; text-align: center; }
+.ldk-logo { font-size: 32px; font-weight: 900; letter-spacing: 0.2em; margin-bottom: 30px; cursor: pointer; }
+.ldk-main-nav ul { display: flex; justify-content: center; gap: 30px; list-style: none; }
+.ldk-main-nav li { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; cursor: pointer; }
+
+/* Hero Visual */
+.ldk-hero { padding: 0 20px; margin-bottom: 80px; }
+.hero-img-wrap { width: 100%; height: 75vh; position: relative; overflow: hidden; background: #f9f9f9; }
+.hero-img-wrap img { object-fit: cover; }
+.hero-caption {
+  position: absolute; bottom: 40px; left: 40px; color: #fff;
+}
+.hero-caption p { font-size: 12px; letter-spacing: 0.2em; margin-bottom: 10px; }
+.hero-caption span { font-size: 10px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+
+/* Product Grid */
+.ldk-product-section { padding: 0 20px 100px; }
+.section-title { font-size: 14px; font-weight: 600; letter-spacing: 0.15em; margin-bottom: 30px; text-align: center; }
+
+.ldk-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 15px;
+}
+
+.ldk-card { cursor: pointer; }
+.ldk-img-vessel { position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #fcfcfc; }
+.ldk-img-vessel img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease; }
+.ldk-card:hover .ldk-img-vessel img { opacity: 0.8; }
+
+.ldk-tag {
+  position: absolute; top: 10px; left: 10px; background: #000; color: #fff;
+  font-size: 9px; padding: 4px 8px; font-weight: 600; z-index: 10;
+}
+
+.ldk-info { margin-top: 15px; text-align: left; }
+.ldk-p-brand { font-size: 10px; font-weight: 700; margin-bottom: 5px; color: #333; }
+.ldk-p-name { font-size: 11px; font-weight: 400; color: var(--ldk-gray); margin-bottom: 8px; letter-spacing: 0.02em; }
+.ldk-p-price { font-size: 11px; font-weight: 500; }
+.tax { font-size: 8px; opacity: 0.5; margin-left: 3px; }
+
+.view-all-btn {
+  display: block; width: 200px; margin: 60px auto 0; padding: 15px;
+  border: 1px solid #000; text-align: center; font-size: 10px; letter-spacing: 0.1em; cursor: pointer;
+}
+
+/* Footer */
+.ldk-footer { border-top: 1px solid var(--ldk-border); padding: 80px 20px 40px; }
+.footer-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.footer-col h4 { font-size: 11px; margin-bottom: 20px; letter-spacing: 0.1em; }
+.footer-col ul { list-style: none; }
+.footer-col li { font-size: 10px; color: var(--ldk-gray); margin-bottom: 10px; cursor: pointer; }
+.footer-bottom { grid-column: span 4; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--ldk-border); }
+.footer-bottom p { font-size: 9px; color: #ccc; letter-spacing: 0.05em; }
+
+/* 새로 추가*/
+/* 1. 기존 헤더 삭제 후 추가할 미니멀 내비게이션 */
+.tokimo-minimal-nav {
+  position: fixed; top: 0; left: 0; width: 100%;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 4vw; z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 2. 로고 허브 (티 안나지만 찾기 쉬운 버튼) */
+.logo-hub { position: relative; cursor: pointer; }
+.main-logo { font-size: 14px; font-weight: 900; letter-spacing: 0.15em; }
+
+.logo-menu {
+  position: absolute; top: 100%; left: 0;
+  display: none; flex-direction: column; gap: 10px;
+  background: #fff; padding: 15px; border: 1px solid #eee;
+  margin-top: 10px; min-width: 100px;
+}
+.logo-hub:hover .logo-menu { display: flex; } /* 로고에 마우스 올리면 홈/프로젝트 메뉴 등장 */
+
+.logo-menu a {
+  font-size: 10px; font-family: var(--font-mono); 
+  color: #999; text-decoration: none; transition: 0.3s;
+}
+.logo-menu a:hover { color: #000; }
+
+/* 메뉴 박스 윗부분에 투명한 감지 영역을 만듭니다 */
+.logo-menu::before {
+  content: "";
+  position: absolute;
+  top: -20px; /* 로고와 메뉴 사이의 간격만큼 위로 확장 */
+  left: 0;
+  width: 100%;
+  height: 20px; /* 이 영역이 마우스를 잡아주는 다리 역할을 함 */
+  background: transparent; /* 투명해서 눈에는 안 보임 */
+}
+
+/* 3. 중앙 카테고리 (작동 가능하게) */
+.nav-center ul { display: flex; gap: 25px; list-style: none; }
+.nav-center li {
+  font-size: 10px; font-weight: 500; color: #888;
+  cursor: pointer; transition: 0.3s;
+}
+.nav-center li:hover { color: #000; }
+
+/* 4. 언어 스위처 (우측 정렬) */
+.lang-switcher { display: flex; gap: 12px; }
+.lang-switcher button {
+  font-size: 10px; background: none; border: none; 
+  color: #ccc; cursor: pointer; transition: 0.3s;
+}
+.lang-switcher button.active { color: #000; text-decoration: underline; }
+
+/* 5. 기존 레이아웃 여백 조정 */
+.ldk-layout { padding-top: 80px; } /* 헤더가 fixed이므로 본문을 내립니다 */
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ldk-grid { grid-template-columns: repeat(2, 1fr); }
+  .ldk-main-nav { display: none; }
+  .footer-inner { grid-template-columns: repeat(2, 1fr); }
+}

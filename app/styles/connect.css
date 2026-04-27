@@ -1,0 +1,236 @@
+/* globals */
+.header .logo a {color: #f1f1f1;}
+.nav a {color: #f1f1f1;}
+.lang-btn.is-active {
+    color: #c5a358;
+}
+
+/*  */
+.connect-page {
+  background: #0a0a0a;
+  color: #efefef;
+  min-height: 100vh;
+  padding: 160px 6% 60px;
+  position: relative;
+  font-family: var(--font-sans);
+}
+
+/* 배경 텍스처: 미세한 그레인(Grain) */
+.bg-texture {
+  position: fixed;
+  inset: 0;
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 헤더 디테일 */
+.connect-header {
+  margin-bottom: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.header-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  opacity: 0.3;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+}
+
+.main-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+/* 컨텐츠 레이아웃 */
+.connect-content {
+  display: flex;
+  gap: 120px;
+  position: relative;
+  z-index: 2;
+}
+
+.info-section {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.block-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.block-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #999;
+  font-weight: 300;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-item {
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: opacity 0.3s;
+}
+
+.link-item:hover { opacity: 0.5; }
+
+/* 폼 스타일: 미니멀리즘의 정수 */
+.form-section {
+  flex: 1;
+}
+
+.log-form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.input-row {
+  display: flex;
+  gap: 40px;
+}
+
+.field-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  opacity: 0.4;
+}
+
+.field-group input, 
+.field-group textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 0;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 300;
+  border-radius: 0;
+  transition: border-color 0.4s;
+}
+
+.field-group input:focus, 
+.field-group textarea:focus {
+  outline: none;
+  border-bottom-color: rgba(255,255,255,0.6);
+}
+
+/* 셀렉터 디자인: 탭 스타일 */
+.selector-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.selector-item {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #555;
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.selector-item.active, 
+.selector-item:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+/* 제출 버튼: 볼드한 마감 */
+.log-submit {
+  align-self: flex-start;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 18px 35px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.log-submit:hover {
+  transform: translateX(10px);
+}
+
+/* 하단 상태바 */
+.connect-footer {
+  margin-top: 100px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.status-indicator {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: 0.1em;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  background: #00ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+  /* 깜빡이는 효과 추가 (감성 디테일) */
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.footer-copyright {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  opacity: 0.2;
+}

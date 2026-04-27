@@ -1,0 +1,231 @@
+/* --- 00. Global Overrides --- */
+header, .header {
+  display: none !important;
+}
+
+/* --- 01. Base & Mood Container --- */
+.furn-container {
+  font-family: 'Helvetica Neue', 'Pretendard', Arial, sans-serif;
+  /* transition: background 1s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s ease; */
+  transition: opacity 0.4s ease; /* 전환 속도 */
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.furn-container.is-switching {
+  opacity: 0; /* 언어 바뀔 때 살짝 사라짐 */
+}
+
+.mode-day { background: #F9F8F6; color: #1a1a1a; }
+.mode-night { background: #111111; color: #e0e0e0; }
+
+/* --- 02. EE Style Navigation --- */
+.ee-nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 3000;
+  padding: 30px 4vw 20px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.ee-nav:hover { background: inherit; }
+
+.nav-top-line {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; letter-spacing: 0.15em; margin-bottom: 25px;
+}
+
+.lang-toggle {
+    gap: 12px;
+    display: flex;
+}
+
+.logo-center {
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+}
+
+.nav-menu-list {
+  display: flex; justify-content: center; gap: 50px;
+  list-style: none; font-size: 12px; letter-spacing: 0.1em;
+}
+
+.nav-item { padding-bottom: 10px; cursor: pointer; }
+
+/* Dropdown (Mega Menu) */
+.nav-dropdown {
+  position: fixed;
+  top: 115px; left: 0; width: 100vw;
+  background-color: #F9F8F6; 
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  height: 0; overflow: hidden;
+  transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease;
+  opacity: 0; pointer-events: none;
+  z-index: 2900;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+}
+
+.mode-night .nav-dropdown {
+  background-color: #111111;
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.nav-dropdown.is-active { height: 450px; opacity: 1; pointer-events: auto; }
+
+.dropdown-inner {
+  max-width: 1400px; margin: 0 auto; padding: 60px 4vw;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;
+  background: transparent;
+}
+
+.drop-col h4 { font-size: 10px; color: #999; margin-bottom: 25px; letter-spacing: 0.1em; }
+.drop-col a { 
+  display: block; font-size: 15px; margin-bottom: 14px; 
+  text-decoration: none; color: inherit; opacity: 0.6;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.drop-col a:hover { opacity: 1; transform: translateX(5px); }
+
+.drop-img-wrap {
+  width: 100%; aspect-ratio: 16/9; position: relative; 
+  margin-bottom: 15px; background: #eee; overflow: hidden;
+}
+
+/* --- 03. Interaction Elements --- */
+.mood-toggle-btn {
+  position: fixed; right: 4vw; bottom: 4vw; z-index: 100;
+  background: transparent; border: 1px solid currentColor;
+  padding: 12px 24px; font-size: 11px; letter-spacing: 0.1em;
+  cursor: pointer; border-radius: 40px;
+  display: flex; align-items: center; gap: 10px;
+  transition: all 0.3s ease;
+  background-color: #f1f1f1;
+}
+
+.mood-toggle-btn .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+.mood-toggle-btn:hover { background: currentColor; color: inherit; }
+.mode-day .mood-toggle-btn:hover { color: #fff; background: #111; }
+.mode-night .mood-toggle-btn:hover { color: #111; background: #fff; }
+
+/* --- 04. Content Sections --- */
+.furn-hero-section {
+  height: 90vh; display: flex; align-items: center;
+  justify-content: center; text-align: center;
+  position: relative; z-index: 10;
+}
+
+.hero-sub { font-size: 12px; letter-spacing: 0.3em; color: #888; margin-bottom: 20px; }
+.furn-hero-section h1 {
+  font-size: clamp(40px, 8vw, 90px); font-weight: 200;
+  line-height: 1.1; letter-spacing: -0.01em; text-transform: uppercase;
+}
+
+/* --- 05. Sophisticated Asymmetric Grid --- */
+.furn-grid-section {
+  padding: 100px 4vw; 
+  display: flex; 
+  justify-content: center;
+}
+
+.grid-container {
+  display: grid; 
+  grid-template-columns: repeat(10, 1fr); /* 10컬럼 시스템 */
+  gap: 100px 130px; 
+  max-width: 1300px; 
+  width: 100%;
+}
+
+.furn-card { 
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
+}
+
+/* 미세한 사이즈 및 위치 차이 부여 */
+.furn-card.size-a { grid-column: span 5; } /* 10칸 중 5칸 */
+.furn-card.size-b { grid-column: span 4; margin-top: 80px; } /* 10칸 중 4칸 + 하단 이동 */
+.furn-card.size-c { grid-column: span 4;} /* 중앙 정렬 효과 */
+
+/* 모든 이미지를 4:5 비율로 강제 고정 */
+.furn-img-container {
+  position: relative; width: 100%; 
+  aspect-ratio: 4 / 5; /* 비율 통일 */
+  overflow: hidden;
+  background: #f0f0f0; 
+  transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.mode-night .furn-img-container { background: #1a1a1a; }
+
+.object-shadow-layer {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 85%, rgba(0,0,0,0.2), transparent 75%);
+  opacity: 0; transition: opacity 1s ease;
+}
+
+.furn-card:hover .object-shadow-layer { opacity: 1; }
+.furn-card:hover .furn-img-container { transform: translateY(-10px); }
+
+/* --- 06. Meta Info (좌우 분할 구조) --- */
+.furn-meta {
+  margin-top: 25px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start;
+  border-top: 1px solid rgba(0,0,0,0.05); 
+  padding-top: 15px;
+}
+
+.mode-night .furn-meta { border-color: rgba(255,255,255,0.05); }
+
+.meta-left { text-align: left; }
+.item-num { font-size: 10px; color: #999; font-family: serif; display: block; margin-bottom: 5px; }
+.item-name { font-size: 15px; font-weight: 400; letter-spacing: 0.05em; }
+
+.meta-right { text-align: right; }
+.item-info { font-size: 10px; color: #888; display: block; margin-bottom: 4px; letter-spacing: 0.05em; }
+
+/* --- 07. Custom Footer --- */
+.furn-custom-footer {
+  padding: 150px 4vw 60px; border-top: 1px solid rgba(0,0,0,0.05); background: inherit;
+}
+
+.mode-night .furn-custom-footer { border-color: rgba(255,255,255,0.05); }
+
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 120px;
+}
+
+.footer-logo { font-size: 20px; font-weight: 600; letter-spacing: 0.4em; }
+.footer-contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 100px; }
+.contact-item .label { font-size: 10px; color: #999; letter-spacing: 0.2em; display: block; margin-bottom: 25px; }
+.contact-item p, .contact-item a { font-size: 13px; line-height: 2; color: inherit; text-decoration: none; opacity: 0.7; display: block; }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.05);
+  font-size: 10px; color: #aaa; letter-spacing: 0.1em;
+}
+
+.mode-night .footer-bottom { border-color: rgba(255,255,255,0.05); }
+
+
+/* 06. Footer */
+.project-footer { border-top: 1px solid #f0f0f0; padding: 60px 4vw; text-align: left; }
+.next-project-link { font-size: 11px; color: #888; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+.next-project-link .arrow { font-weight: 800; color: #ccc; }
+.next-project-link .title { color: #333; font-weight: 600; margin-left: 10px; }
+.next-project-link:hover { opacity: 0.6; }
+
+/* --- 08. Responsive --- */
+@media (max-width: 1024px) {
+  .grid-container { grid-template-columns: 1fr; gap: 60px; }
+  .furn-card.size-a, .furn-card.size-b, .furn-card.size-c { grid-column: span 1; margin-top: 0; grid-column-start: auto; }
+  .footer-top { flex-direction: column; gap: 60px; }
+  .footer-contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .nav-menu-list { gap: 20px; font-size: 11px; }
+  .nav-dropdown.is-active { height: auto; padding-bottom: 40px; }
+  .dropdown-inner { grid-template-columns: 1fr 1fr; }
+}
