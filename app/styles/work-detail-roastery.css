@@ -276,8 +276,9 @@
 
 /* --- Business Partnership --- */
 .arch-business {
-  padding: 120px 4vw;
+  padding: 100px 4vw;
   border-bottom: 0.5px solid var(--border-color);
+  margin-bottom: 10px;
 }
 
 .biz-item {

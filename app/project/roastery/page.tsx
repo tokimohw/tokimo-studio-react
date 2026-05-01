@@ -20,21 +20,21 @@ export default function RoasteryDetailPage() {
       name: "TOKYO BLEND", 
       note: t('ro-scene-1'), 
       price: "¥1,800", 
-      img: "/images/all_mood/m_black8.avif" 
+      img: "/images/cafe/cafe-roastery1.webp" 
     },
     { 
       id: 2, 
       name: "SEOUL MIST", 
       note: t('ro-scene-2'), 
       price: "¥2,200", 
-      img: "/images/all_mood/m_interior1.avif" 
+      img: "/images/cafe/cafe-roastery2.webp" 
     },
     { 
       id: 3, 
       name: "QUIET MORNING", 
       note: t('ro-scene-3'), 
       price: "¥2,000", 
-      img: "/images/all_mood/jp_street2.jpeg" 
+      img: "/images/cafe/cafe-roastery1.webp" 
     },
   ];
 
@@ -80,7 +80,7 @@ export default function RoasteryDetailPage() {
           <p className="description">{t('roastery-desc')}</p>
         </div>
         <div className="img-side">
-          <Image src="/images/all_mood/jp_street2.jpeg" alt="Mood" width={500} height={600} />
+          <Image src="/images/cafe/cafe-02-menu-signature.png" alt="Mood" width={500} height={600} />
           <figcaption className="img-caption">RAW TEXTURE, TOKYO STREET</figcaption>
         </div>
       </section>
@@ -161,7 +161,7 @@ export default function RoasteryDetailPage() {
             <button className="sub-cta">{t('ro-sub-btn')}</button>
           </div>
           <div className="sub-img">
-            <Image src="/images/all_mood/m_black8.avif" alt="Archive Card" width={300} height={400} />
+            <Image src="/images/cafe/cafe-03-bar-center.png" alt="Archive Card" width={300} height={400} />
           </div>
         </div>
       </section>
@@ -184,7 +184,7 @@ export default function RoasteryDetailPage() {
       <section className="arch-store-info">
         <div className="info-grid">
           <div className="info-item map-area">
-            <Image src="/images/all_mood/m_interior1.avif" alt="Interior" width={500} height={400} />
+            <Image src="/images/cafe/cafe-04-seating-view.png" alt="Interior" width={500} height={400} />
             <figcaption>Seoul — Seongsu</figcaption>
           </div>
           <div className="info-item text-area">
