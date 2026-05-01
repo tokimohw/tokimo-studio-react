@@ -173,33 +173,77 @@ export const i18nData: Record<Locale, Record<string, any>> = {
     "ro-whole-desc": "귀하의 공간에 가장 잘 어울리는 원두와 무드를 제안합니다.",
     "ro-whole-btn": "샘플 키트 신청하기",
   
-    // cafe
-// 공통 및 정보
-    "cafe-info-open": "운영 시간",
-    "cafe-info-loc": "위치",
-    "cafe-buy-btn": "장바구니에 담기",
-    "cafe-shop-desc": "공간의 경험을 집으로 배달합니다.",
-    "cafe-shop-bean": "원두",
-    "cafe-shop-goods": "굿즈",
-    
-    // 메뉴 설명 (커피/드립)
-    "cafe-menu-flat-desc": "고소한 우유의 질감과 진한 에스프레소의 밸런스",
-    "cafe-menu-latte-desc": "귀리 우유와 수제 시럽이 들어간 시그니처 음료",
-    "cafe-menu-ame-desc": "깔끔하고 깊은 풍미의 데일리 커피",
-    "cafe-menu-drip1-desc": "푸글렌 스타일의 가볍고 산뜻한 라이트 로스팅",
-    "cafe-menu-drip2-desc": "균형 잡힌 단맛과 부드러운 산미의 조화",
-    "cafe-menu-drip3-desc": "화사한 꽃향기와 과일의 달콤함",
-    
-    // 메뉴 설명 (디저트/샌드위치)
-    "cafe-menu-matcha-desc": "교토산 말차를 사용한 꾸덕한 질감의 테린느",
-    "cafe-menu-cheese-desc": "상큼한 산미와 부드러운 치즈의 조화",
-    "cafe-menu-sando1-desc": "부드러운 달걀과 와사비 마요의 깔끔한 조화",
-    "cafe-menu-sando2-desc": "달콤한 사과와 고소한 브리치즈를 곁들인 바게트",
-    
-    // 세트 메뉴
-    "cafe-set-tag": "세트 메뉴",
-    "cafe-set-title": "사색을 위한 티켓 (THE SILENCE TICKET)",
-    "cafe-set-desc": "오늘의 드립 커피 + 테린느 1종 + 영감 노트 1매",
+    // cafe 페이지
+    // --- Info Section ---
+    'cafe-info-open': '영업시간',
+    'cafe-info-open-val': '11:00 AM — 09:00 PM (매일)',
+    'cafe-info-loc': '오프라인 쇼룸',
+    'cafe-info-loc-val': '서울시 성동구 성수이로 12, 1층',
+
+    // --- Category Titles ---
+    'cafe-cat-coffee': '커피',
+    'cafe-cat-drip': '브루잉',
+    'cafe-cat-dessert': '디저트',
+    'cafe-cat-sandwich': '샌드위치',
+
+    // --- Coffee Menu ---
+    'cafe-menu-flat-name': '플랫 화이트',
+    'cafe-menu-flat-desc': '고소하고 진한 리스트레토와 실키한 스팀 밀크',
+    'cafe-menu-latte-name': '토키모 라떼',
+    'cafe-menu-latte-desc': '비정제 원당을 블렌딩하여 은은한 단맛을 낸 시그니처 라떼',
+    'cafe-menu-ame-name': '아메리카노',
+    'cafe-menu-ame-desc': '다크 초콜릿의 묵직한 바디감과 깔끔한 여운',
+
+    // --- Drip Menu ---
+    'cafe-menu-drip1-name': '도쿄 블렌드 (라이트)',
+    'cafe-menu-drip1-desc': '자스민의 향긋함과 백도의 은은한 산미',
+    'cafe-menu-drip2-name': '서울 미스트 (미디엄)',
+    'cafe-menu-drip2-desc': '구운 아몬드의 고소함과 캐러멜의 완벽한 밸런스',
+    'cafe-menu-drip3-name': '에티오피아 싱글 오리진',
+    'cafe-menu-drip3-desc': '베리류의 기분 좋은 단맛과 화사한 꽃내음',
+
+    // --- Dessert & Sandwich ---
+    'cafe-menu-matcha-name': '말차 테린느',
+    'cafe-menu-matcha-desc': '교토 우지 말차를 아낌없이 넣은 꾸덕한 텍스처',
+    'cafe-menu-cheese-name': '레어 치즈 케이크',
+    'cafe-menu-cheese-desc': '마다가스카르 바닐라빈이 들어간 부드러운 식감',
+    'cafe-menu-sando1-name': '타마고 산도',
+    'cafe-menu-sando1-desc': '부드럽고 퐁신하게 구워낸 일본식 계란말이 샌드위치',
+    'cafe-menu-sando2-name': '애플 브리 바게트',
+    'cafe-menu-sando2-desc': '바삭한 바게트와 브리치즈, 수제 사과 콤포트의 조화',
+
+    // --- Set Menu ---
+    'cafe-set-tag': '오전 한정',
+    'cafe-set-title': '모닝 바이브 세트',
+    'cafe-set-desc': '샌드위치 택 1 + 아메리카노 또는 필터 커피',
+
+    // --- Shop ---
+    'cafe-shop-title': '온라인 스토어',
+    'cafe-shop-desc': '토키모의 무드를 당신의 공간으로.',
+    'cafe-shop-bean': '원두',
+    'cafe-shop-goods': '라이프스타일',
+    'cafe-buy-btn': '구매하기',
+    'cafe-shop-item1-name': '도쿄 블렌드 (200g)',
+    'cafe-shop-item2-name': '서울 미스트 (200g)',
+    'cafe-shop-item3-name': '토키모 브라스 인센스 홀더',
+
+    // 금액
+    // --- Coffee Prices (KRW) ---
+    'cafe-price-flat': '6,500',
+    'cafe-price-latte': '7,500',
+    'cafe-price-ame': '6,000',
+    'cafe-price-drip-light': '7,000',
+    'cafe-price-drip-med': '7,500',
+    'cafe-price-drip-single': '8,000',
+    'cafe-price-matcha': '8,000',
+    'cafe-price-cheese': '8,500',
+    'cafe-price-sando1': '9,000',
+    'cafe-price-sando2': '11,000',
+    'cafe-price-set': '₩ 14,000',
+    'cafe-price-shop1': '24,000',
+    'cafe-price-shop2': '26,000',
+    'cafe-price-shop3': '42,000',
+    'currency-symbol': '₩',
 
     // 가구 페이지
     "furn-intro-tag": "시간이 머무는 오브제",
@@ -401,33 +445,77 @@ export const i18nData: Record<Locale, Record<string, any>> = {
     "ro-whole-desc": "あなたの空間に最もふさ와しい豆とムードを提案します。",
     "ro-whole-btn": "サンプルキットを申し込む",
 
-    // cafe
-    // 共通および情報
-    "cafe-info-open": "営業時間",
-    "cafe-info-loc": "アクセス",
-    "cafe-buy-btn": "カートに入れる",
-    "cafe-shop-desc": "空間の体験を自宅にお届けします。",
-    "cafe-shop-bean": "コーヒー豆",
-    "cafe-shop-goods": "グッズ",
-    
-    // メニュー説明 (コーヒー/ドリップ)
-    "cafe-menu-flat-desc": "香ばしいミルクの質感と濃厚なエスプレッソのバランス",
-    "cafe-menu-latte-desc": "オーツミルクと自家製シロップのシグネチャーラテ",
-    "cafe-menu-ame-desc": "すっきりとした深い味わいのデイリーコーヒー",
-    "cafe-menu-drip1-desc": "フグレンスタイルの軽やかで爽やかなライトロースト",
-    "cafe-menu-drip2-desc": "バランスの取れた甘みと柔らかな酸味の調和",
-    "cafe-menu-drip3-desc": "華やかな花の香りと果実の甘み",
-    
-    // メニュー説明 (デザート/サンドイッチ)
-    "cafe-menu-matcha-desc": "京都産抹茶を使用した濃厚な質感のテリーヌ",
-    "cafe-menu-cheese-desc": "爽やかな酸味と滑らかなチーズのハーモニー",
-    "cafe-menu-sando1-desc": "ふわふわの卵とワサビマヨのすっきりとした調과",
-    "cafe-menu-sando2-desc": "甘いリンゴと香ばしいブリーチーズを添えたバゲット",
-    
-    // セットメニュー
-    "cafe-set-tag": "セットメニュー",
-    "cafe-set-title": "思索のためのチケット (THE SILENCE TICKET)",
-    "cafe-set-desc": "本日のドリップコーヒー + テリーヌ1種 + インスピレーションノート1枚",
+    // cafe 페이지
+    // --- Info Section ---
+    'cafe-info-open': '営業時間',
+    'cafe-info-open-val': '11:00 AM — 09:00 PM (毎日)',
+    'cafe-info-loc': 'アクセス',
+    'cafe-info-loc-val': 'ソウル特別市城東区聖水二路12, 1F',
+
+    // --- Category Titles ---
+    'cafe-cat-coffee': 'コーヒー',
+    'cafe-cat-drip': 'ハンドドリップ',
+    'cafe-cat-dessert': 'デザート',
+    'cafe-cat-sandwich': 'サンドイッチ',
+
+    // --- Coffee Menu ---
+    'cafe-menu-flat-name': 'フラットホワイト',
+    'cafe-menu-flat-desc': '芳醇で濃厚なリストレットとシルキーなスチームミルク。',
+    'cafe-menu-latte-name': 'トキモラテ',
+    'cafe-menu-latte-desc': '未精製糖をブレンドし、ほのかな甘みを引き出したシグネチャーラテ。',
+    'cafe-menu-ame-name': 'アメリカーノ',
+    'cafe-menu-ame-desc': 'ダークチョコレートのような重厚なボディとクリーンな余韻。',
+
+    // --- Drip Menu ---
+    'cafe-menu-drip1-name': '東京ブレンド (ライト)',
+    'cafe-menu-drip1-desc': 'ジャスミンの香りと白桃のほのかな酸味。',
+    'cafe-menu-drip2-name': 'ソウルミスト (ミディアム)',
+    'cafe-menu-drip2-desc': 'ローストアーモンドの香ばしさとキャラメルの完璧なバランス。',
+    'cafe-menu-drip3-name': 'エチオピア シングルオリジン',
+    'cafe-menu-drip3-desc': 'ベリー系の心地よい甘みと華やかな花の香り。',
+
+    // --- Dessert & Sandwich ---
+    'cafe-menu-matcha-name': '抹茶テリーヌ',
+    'cafe-menu-matcha-desc': '京都宇治抹茶を贅沢に使用した、ねっとりとした食感。',
+    'cafe-menu-cheese-name': 'レアチーズケーキ',
+    'cafe-menu-cheese-desc': 'マダガスカル産バニラビーンズを使用したなめらかな口当たり。',
+    'cafe-menu-sando1-name': 'たまごサンド',
+    'cafe-menu-sando1-desc': 'ふわふわに焼き上げた関西風の厚焼き卵サンドイッチ。',
+    'cafe-menu-sando2-name': 'アップルブリーバゲット',
+    'cafe-menu-sando2-desc': 'サクサクのバゲットにブリーチーズと自家製リンゴコンポート。',
+
+    // --- Set Menu ---
+    'cafe-set-tag': '午前限定',
+    'cafe-set-title': 'モーニングバイブセット',
+    'cafe-set-desc': 'お好きなサンドイッチ ＋ アメリカーノまたはフィルターコーヒー',
+
+    // --- Shop ---
+    'cafe-shop-title': 'オンラインストア',
+    'cafe-shop-desc': 'トキモのムードを、あなたの空間へ。',
+    'cafe-shop-bean': 'コーヒー豆',
+    'cafe-shop-goods': 'ライフスタイル',
+    'cafe-buy-btn': '購入する',
+    'cafe-shop-item1-name': '東京ブレンド (200g)',
+    'cafe-shop-item2-name': 'ソウルミスト (200g)',
+    'cafe-shop-item3-name': 'トキモ 真鍮インセンスホルダー',
+
+    // 금액
+    // --- Coffee Prices (JPY) ---
+    'cafe-price-flat': '750',
+    'cafe-price-latte': '850',
+    'cafe-price-ame': '700',
+    'cafe-price-drip-light': '800',
+    'cafe-price-drip-med': '850',
+    'cafe-price-drip-single': '950',
+    'cafe-price-matcha': '950',
+    'cafe-price-cheese': '1,000',
+    'cafe-price-sando1': '1,100',
+    'cafe-price-sando2': '1,300',
+    'cafe-price-set': '¥ 1,600',
+    'cafe-price-shop1': '2,800',
+    'cafe-price-shop2': '3,100',
+    'cafe-price-shop3': '4,800',
+    'currency-symbol': '¥',
 
     // 가구 페이지
     "furn-intro-tag": "時間が留まるオブジェ",
@@ -630,33 +718,76 @@ export const i18nData: Record<Locale, Record<string, any>> = {
     "ro-whole-desc": "We propose the best beans and moods for your unique space.",
     "ro-whole-btn": "REQUEST SAMPLE KIT",
 
-    // cafe
-    // Info & Actions
-    "cafe-info-open": "OPEN HOURS",
-    "cafe-info-loc": "LOCATION",
-    "cafe-buy-btn": "ADD TO CART",
-    "cafe-shop-desc": "Delivering the spatial experience to your home.",
-    "cafe-shop-bean": "BEAN",
-    "cafe-shop-goods": "GOODS",
-    
-    // Menu (Coffee/Drip)
-    "cafe-menu-flat-desc": "Balance of nutty milk texture and rich espresso",
-    "cafe-menu-latte-desc": "Signature latte with oat milk and homemade syrup",
-    "cafe-menu-ame-desc": "Clean and deep flavor daily coffee",
-    "cafe-menu-drip1-desc": "Fuglen-style light and refreshing light roasting",
-    "cafe-menu-drip2-desc": "Harmony of balanced sweetness and soft acidity",
-    "cafe-menu-drip3-desc": "Bright floral aroma and fruity sweetness",
-    
-    // Menu (Dessert/Sandwich)
-    "cafe-menu-matcha-desc": "Rich and fudgy terrine made with Kyoto matcha",
-    "cafe-menu-cheese-desc": "Harmony of fresh acidity and smooth cheese",
-    "cafe-menu-sando1-desc": "Clean combination of soft egg and wasabi mayo",
-    "cafe-menu-sando2-desc": "Baguette with sweet apple and savory Brie cheese",
-    
-    // Set Menu
-    "cafe-set-tag": "SET MENU",
-    "cafe-set-title": "THE SILENCE TICKET",
-    "cafe-set-desc": "Today's Drip Coffee + 1 Terrine + 1 Inspiration Note",
+    // cafe 페이지
+    // --- Info Section ---
+    'cafe-info-open': 'OPEN',
+    'cafe-info-open-val': '11:00 AM — 09:00 PM (DAILY)',
+    'cafe-info-loc': 'LOCATION',
+    'cafe-info-loc-val': '1F, 12, SEONGSUI-RO, SEOUL',
+
+    // --- Category Titles ---
+    'cafe-cat-coffee': 'COFFEE',
+    'cafe-cat-drip': 'HAND DRIP',
+    'cafe-cat-dessert': 'DESSERT',
+    'cafe-cat-sandwich': 'SANDWICH',
+
+    // --- Coffee Menu ---
+    'cafe-menu-flat-name': 'Flat White',
+    'cafe-menu-flat-desc': 'Rich ristretto with velvety steamed milk.',
+    'cafe-menu-latte-name': 'Tokimo Latte',
+    'cafe-menu-latte-desc': 'Our signature latte blended with unrefined raw sugar.',
+    'cafe-menu-ame-name': 'Americano',
+    'cafe-menu-ame-desc': 'Heavy body of dark chocolate with a clean finish.',
+
+    // --- Drip Menu ---
+    'cafe-menu-drip1-name': 'Tokyo Blend (Light)',
+    'cafe-menu-drip1-desc': 'Jasmine, white peach, and subtle acidity.',
+    'cafe-menu-drip2-name': 'Seoul Mist (Medium)',
+    'cafe-menu-drip2-desc': 'Roasted almonds, caramel, well-balanced.',
+    'cafe-menu-drip3-name': 'Ethiopia Single Origin',
+    'cafe-menu-drip3-desc': 'Sweetness of berries with a bright floral aroma.',
+
+    // --- Dessert & Sandwich ---
+    'cafe-menu-matcha-name': 'Matcha Terrine',
+    'cafe-menu-matcha-desc': 'Dense and rich terrine made with Uji matcha from Kyoto.',
+    'cafe-menu-cheese-name': 'Rare Cheesecake',
+    'cafe-menu-cheese-desc': 'Soft rare cheesecake with Madagascar vanilla beans.',
+    'cafe-menu-sando1-name': 'Tamago Sando',
+    'cafe-menu-sando1-desc': 'Japanese-style fluffy egg omelette sandwich.',
+    'cafe-menu-sando2-name': 'Apple Brie Baguette',
+    'cafe-menu-sando2-desc': 'Crispy baguette, brie cheese, and homemade apple compote.',
+
+    // --- Set Menu ---
+    'cafe-set-tag': 'MORNING ONLY',
+    'cafe-set-title': 'Morning Vibe Set',
+    'cafe-set-desc': 'Any Sandwich + Americano or Filter Coffee',
+
+    // --- Shop ---
+    'cafe-shop-title': 'ONLINE SHOP',
+    'cafe-shop-desc': 'Take the TOKIMO mood home.',
+    'cafe-shop-bean': 'COFFEE BEAN',
+    'cafe-shop-goods': 'LIFESTYLE',
+    'cafe-buy-btn': 'SHOP NOW',
+    'cafe-shop-item1-name': 'Tokyo Blend (200g)',
+    'cafe-shop-item2-name': 'Seoul Mist (200g)',
+    'cafe-shop-item3-name': 'Tokimo Brass Incense',
+
+    // 금액
+    'cafe-price-flat': '6.5',
+    'cafe-price-latte': '7.5',
+    'cafe-price-ame': '6.0',
+    'cafe-price-drip-light': '7.0',
+    'cafe-price-drip-med': '7.5',
+    'cafe-price-drip-single': '8.0',
+    'cafe-price-matcha': '8.0',
+    'cafe-price-cheese': '8.5',
+    'cafe-price-sando1': '9.0',
+    'cafe-price-sando2': '11.0',
+    'cafe-price-set': '$ 14.0',
+    'cafe-price-shop1': '24.0',
+    'cafe-price-shop2': '26.0',
+    'cafe-price-shop3': '42.0',
+    'currency-symbol': '$',
 
     // 가구 페이지
     "furn-intro-tag": "OBJECTS OF TIME",

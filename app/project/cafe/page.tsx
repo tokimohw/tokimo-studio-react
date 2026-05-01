@@ -11,32 +11,32 @@ export default function CafeDetailPage() {
 
   // ☕ 카테고리별 다국어 메뉴 데이터
   const coffeeMenu = [
-    { name: "Flat White", price: "6.5", desc: t('cafe-menu-flat-desc') },
-    { name: "Tokimo Latte", price: "7.5", desc: t('cafe-menu-latte-desc') },
-    { name: "Americano", price: "6.0", desc: t('cafe-menu-ame-desc') }
+    { name: t('cafe-menu-flat-name'), price: t('cafe-price-flat'), desc: t('cafe-menu-flat-desc') },
+    { name: t('cafe-menu-latte-name'), price: t('cafe-price-latte'), desc: t('cafe-menu-latte-desc') },
+    { name: t('cafe-menu-ame-name'), price: t('cafe-price-ame'), desc: t('cafe-menu-ame-desc') }
   ];
 
   const dripMenu = [
-    { name: "Tokyo Blend (Light)", price: "7.0", desc: t('cafe-menu-drip1-desc') },
-    { name: "Seoul Mist (Medium)", price: "7.5", desc: t('cafe-menu-drip2-desc') },
-    { name: "Ethiopia Single Origin", price: "8.0", desc: t('cafe-menu-drip3-desc') }
+    { name: t('cafe-menu-drip1-name'), price: t('cafe-price-drip-light'), desc: t('cafe-menu-drip1-desc') },
+    { name: t('cafe-menu-drip2-name'), price: t('cafe-price-drip-med'), desc: t('cafe-menu-drip2-desc') },
+    { name: t('cafe-menu-drip3-name'), price: t('cafe-price-drip-single'), desc: t('cafe-menu-drip3-desc') }
   ];
 
   const dessertMenu = [
-    { name: "Matcha Terrine", price: "8.0", desc: t('cafe-menu-matcha-desc') },
-    { name: "Rare Cheesecake", price: "8.5", desc: t('cafe-menu-cheese-desc') }
+    { name: t('cafe-menu-matcha-name'), price: t('cafe-price-matcha'), desc: t('cafe-menu-matcha-desc') },
+    { name: t('cafe-menu-cheese-name'), price: t('cafe-price-cheese'), desc: t('cafe-menu-cheese-desc') }
   ];
 
   const sandwichMenu = [
-    { name: "Tamago Sando", price: "9.0", desc: t('cafe-menu-sando1-desc') },
-    { name: "Apple Brie Baguette", price: "11.0", desc: t('cafe-menu-sando2-desc') }
+    { name: t('cafe-menu-sando1-name'), price: t('cafe-price-sando1'), desc: t('cafe-menu-sando1-desc') },
+    { name: t('cafe-menu-sando2-name'), price: t('cafe-price-sando2'), desc: t('cafe-menu-sando2-desc') }
   ];
 
-  // 📦 판매 상품 (원두 & 굿즈)
+  // 📦 판매 상품 (가격까지 t() 적용)
   const shopItems = [
-    { id: 1, type: t('cafe-shop-bean'), name: "Tokyo Blend (200g)", price: "24,000", img: "/images/cafe/cafe-roastery1.jpeg" },
-    { id: 2, type: t('cafe-shop-bean'), name: "Seoul Mist (200g)", price: "26,000", img: "/images/cafe/cafe-roastery2.jpeg" },
-    { id: 3, type: t('cafe-shop-goods'), name: "Tokimo Brass Incense", price: "42,000", img: "/images/cafe/cafe-02-menu-signature.png" }
+    { id: 1, type: t('cafe-shop-bean'), name: t('cafe-shop-item1-name'), price: t('cafe-price-shop1'), img: "/images/cafe/cafe-roastery1.webp" },
+    { id: 2, type: t('cafe-shop-bean'), name: t('cafe-shop-item2-name'), price: t('cafe-price-shop2'), img: "/images/cafe/cafe-roastery2.webp" },
+    { id: 3, type: t('cafe-shop-goods'), name: t('cafe-shop-item3-name'), price: t('cafe-price-shop3'), img: "/images/cafe/cafe-02-menu-signature.png" }
   ];
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export default function CafeDetailPage() {
         <div className="hero-img-wrap">
           <Image src="/images/cafe/cafe-01-hero-full.png" alt="Cafe Space" fill className="object-cover" priority />
           <div className="hero-overlay">
+            {/* 영문 타이포그래피는 브랜드 아이덴티티이므로 고정 유지 */}
             <h1>TOKIMO CAFE</h1>
             <p>SEOUL / TOKYO</p>
           </div>
@@ -60,11 +61,11 @@ export default function CafeDetailPage() {
       <section className="cafe-info-bar">
         <div className="info-item">
           <span className="label">{t('cafe-info-open')}</span>
-          <span className="val">11:00 AM — 09:00 PM (DAILY)</span>
+          <span className="val">{t('cafe-info-open-val')}</span>
         </div>
         <div className="info-item">
           <span className="label">{t('cafe-info-loc')}</span>
-          <span className="val">1F, 12, SEONGSUI-RO, SEOUL</span>
+          <span className="val">{t('cafe-info-loc-val')}</span>
         </div>
       </section>
 
@@ -72,49 +73,53 @@ export default function CafeDetailPage() {
       <section className="cafe-menu-board">
         {/* Row 1: Coffee & Drip */}
         <div className="menu-column">
-          <h2 className="cat-title">COFFEE</h2>
+          <h2 className="cat-title">{t('cafe-cat-coffee')}</h2>
           {coffeeMenu.map((item, i) => (
             <div key={i} className="menu-item">
               <div className="item-main">
                 <span className="item-name">{item.name}</span>
-                <span className="item-price">{item.price}</span>
+                {/* 통화 기호를 포함하여 가격 표시 */}
+                <span className="item-price">{t('currency-symbol')} {item.price}</span>
               </div>
               <p className="item-desc">{item.desc}</p>
             </div>
           ))}
         </div>
+
         <div className="menu-column">
-          <h2 className="cat-title">HAND DRIP</h2>
+          <h2 className="cat-title">{t('cafe-cat-drip')}</h2>
           {dripMenu.map((item, i) => (
             <div key={i} className="menu-item">
               <div className="item-main">
                 <span className="item-name">{item.name}</span>
-                <span className="item-price">{item.price}</span>
+                <span className="item-price">{t('currency-symbol')} {item.price}</span>
               </div>
               <p className="item-desc">{item.desc}</p>
             </div>
           ))}
         </div>
+
         {/* Row 2: Dessert & Sandwich */}
         <div className="menu-column">
-          <h2 className="cat-title">DESSERT</h2>
+          <h2 className="cat-title">{t('cafe-cat-dessert')}</h2>
           {dessertMenu.map((item, i) => (
             <div key={i} className="menu-item">
               <div className="item-main">
                 <span className="item-name">{item.name}</span>
-                <span className="item-price">{item.price}</span>
+                <span className="item-price">{t('currency-symbol')} {item.price}</span>
               </div>
               <p className="item-desc">{item.desc}</p>
             </div>
           ))}
         </div>
+
         <div className="menu-column">
-          <h2 className="cat-title">SANDWICH</h2>
+          <h2 className="cat-title">{t('cafe-cat-sandwich')}</h2>
           {sandwichMenu.map((item, i) => (
             <div key={i} className="menu-item">
               <div className="item-main">
                 <span className="item-name">{item.name}</span>
-                <span className="item-price">{item.price}</span>
+                <span className="item-price">{t('currency-symbol')} {item.price}</span>
               </div>
               <p className="item-desc">{item.desc}</p>
             </div>
@@ -128,14 +133,14 @@ export default function CafeDetailPage() {
           <span className="set-tag">{t('cafe-set-tag')}</span>
           <h3>{t('cafe-set-title')}</h3>
           <p>{t('cafe-set-desc')}</p>
-          <span className="price">₩ 14,000</span>
+          <span className="price">{t('cafe-price-set')}</span>
         </div>
       </section>
 
       {/* --- SECTION 05: ONLINE SHOP --- */}
       <section className="cafe-shop-section">
         <div className="section-title">
-          <h2>ONLINE SHOP</h2>
+          <h2>{t('cafe-shop-title')}</h2>
           <p>{t('cafe-shop-desc')}</p>
         </div>
         <div className="shop-grid">
@@ -148,7 +153,7 @@ export default function CafeDetailPage() {
               <div className="shop-meta">
                 <span className="type">{item.type}</span>
                 <span className="name">{item.name}</span>
-                <span className="price">₩ {item.price}</span>
+                <span className="price">{t('currency-symbol')} {item.price}</span>
               </div>
             </div>
           ))}
