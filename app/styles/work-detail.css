@@ -1,5 +1,5 @@
-.header {display: none;}
-
+.header,.footer {display: none;}
+ 
 /* ===================== [TOKIMO x 1LDK STYLE] ===================== */
 :root {
   --ldk-bg: #ffffff;
