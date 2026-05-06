@@ -3,8 +3,8 @@ export type Locale = 'ko' | 'jp' | 'en';
 export const i18nData: Record<Locale, Record<string, any>> = {
   ko: {
     // 공통 요소
-    "nav-about": "Architecture",
-    "nav-project": "Repositories",
+    "nav-about": "about",
+    "nav-project": "project",
     "nav-connect": "Connect",
     "side-craft": "디지털·크래프트맨십",
     "footer-cta": "간결한 가치를 만듭니다.",
@@ -295,8 +295,8 @@ export const i18nData: Record<Locale, Record<string, any>> = {
   },
   jp: {
     // index
-    "nav-about": "Architecture",
-    "nav-project": "Repositories",
+    "nav-about": "about",
+    "nav-project": "project",
     "nav-connect": "Connect",
     "side-craft": "デジタル・クラフトマンシップ",
     "footer-cta": "シンプルなものづくりを。",
@@ -568,8 +568,8 @@ export const i18nData: Record<Locale, Record<string, any>> = {
   },
   en: {
     // index
-    "nav-about": "Architecture",
-    "nav-project": "Repositories",
+    "nav-about": "about",
+    "nav-project": "project",
     "nav-connect": "Connect",
     "side-craft": "Digital Craftsmanship",
     "footer-cta": "Let’s build something simple.",
