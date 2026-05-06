@@ -8,7 +8,7 @@ import "../styles/project.css";
 
 const PROJECTS = [
   { id: "fashion", num: "01", catKey: "cat-identity", nameKey: "p01-name", descKey: "p01-desc", img: "/images/index/project-lookbook.png", tech: ["#IDENTITY", "#DIGITAL_FLAGSHIP"] },
-  { id: "roastery", num: "02", catKey: "cat-space", nameKey: "p02-name", descKey: "p02-desc", img: "/images/cafe/cafe-roastery2.jpeg", tech: ["#PROCESS", "#TEXTURE"] },
+  { id: "roastery", num: "02", catKey: "cat-space", nameKey: "p02-name", descKey: "p02-desc", img: "/images/cafe/cafe-roastery2.webp", tech: ["#PROCESS", "#TEXTURE"] },
   { id: "cafe", num: "03", catKey: "cat-space", nameKey: "p03-name", descKey: "p03-desc", img: "/images/index/project-cafe.png", tech: ["#BRANDING", "#SPACE_EXP"] },
   { id: "furniture", num: "04", catKey: "cat-object", nameKey: "p04-name", descKey: "p04-desc", img: "/images/furniture/project_03_p1.png", tech: ["#CURATION", "#OBJECT"] },
   { id: "stationery", num: "05", catKey: "cat-object", nameKey: "p05-name", descKey: "p05-desc", img: "/images/stationery/stationery.png", tech: ["#ARCHIVE", "#MATERIAL"] }
