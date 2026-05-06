@@ -183,10 +183,10 @@ export default function RoasteryDetailPage() {
       {/* --- 07. STORE INFO --- */}
       <section className="arch-store-info">
         <div className="info-grid">
-          <div className="info-item map-area">
+          <figure className="info-item map-area">
             <Image src="/images/cafe/cafe-04-seating-view.png" alt="Interior" width={500} height={400} />
             <figcaption>Seoul — Seongsu</figcaption>
-          </div>
+          </figure>
           <div className="info-item text-area">
             <div className="info-block">
               <h5 className="info-label">{t('roastery-hour')}</h5>
