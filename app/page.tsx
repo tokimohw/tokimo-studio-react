@@ -11,7 +11,7 @@ export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 3;
 
-  const parallaxRef = useRef<NodeListOf<Element> | null>(null);
+  // const parallaxRef = useRef<NodeListOf<Element> | null>(null);
   
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -239,6 +239,18 @@ export default function HomePage() {
    컴포넌트 분리 (핵심)
 ========================= */
 
+// 1. ProjectCard가 사용하는 데이터들의 타입을 명확하게 정의합니다.
+interface ProjectCardProps {
+  href: string;
+  img: string;
+  title: string;
+  desc: string;
+  status: string;
+  meta: string;
+  t: (key: string) => string; // 번역 함수는 문자열을 받아 문자열을 반환하는 타입으로 지정합니다.
+}
+
+// 2. 정의한 interface를 컴포넌트에 연결합니다. (: any 대신 : ProjectCardProps)
 function ProjectCard({
   href,
   img,
@@ -247,7 +259,7 @@ function ProjectCard({
   status,
   meta,
   t,
-}: any) {
+}: ProjectCardProps) {
   return (
     <Link href={href} className="archive-item">
       <div className="archive-img-wrap">
