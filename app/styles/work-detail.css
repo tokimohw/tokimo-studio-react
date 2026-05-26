@@ -84,11 +84,17 @@ body:has(.ldk-layout) footer:not(.ldk-footer) {
   background: transparent;
 }
 
-/* 데스크탑에서만 호버 메뉴 작동 (모바일 오작동 방지) */
-@media (hover: hover) and (pointer: fine) {
-  .logo-hub:hover .logo-menu {
-    display: flex;
-  }
+/* [교체] PC 호버 + 모바일 터치(포커스) 동시 대응 CSS */
+.logo-hub:hover .logo-menu,
+.logo-hub:focus .logo-menu,
+.logo-hub:focus-within .logo-menu {
+  display: flex;
+}
+
+/* 모바일 터치 시 파란색 아웃라인 박스 생기는 것 방지 및 부드러운 터치감 */
+.logo-hub {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .logo-menu a {
@@ -377,6 +383,11 @@ body:has(.ldk-layout) footer:not(.ldk-footer) {
 /* ==========================================================================
    06. RESPONSIVE & MOBILE (Simple & Clean)
    ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .logo-hub:hover .logo-menu { display: flex; }
+}
+
 @media (max-width: 1024px) {
   .ldk-grid {
     grid-template-columns: repeat(2, 1fr);

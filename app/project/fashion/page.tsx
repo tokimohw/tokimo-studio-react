@@ -36,7 +36,7 @@ export default function TokimoStore() {
       {/* HEADER: 통합된 미니멀 내비게이션 */}
       <header className="tokimo-minimal-nav">
         <div className="nav-left">
-          <div className="logo-hub">
+          <div className="logo-hub" tabIndex={0}>
             <span className="main-logo">TOKIMO</span>
             <div className="logo-menu">
               <a href="/">HOME</a>
