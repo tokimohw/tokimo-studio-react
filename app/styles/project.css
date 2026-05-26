@@ -425,7 +425,7 @@
 
   /* 햄버거 버튼 */
   .menu-trigger span {
-    color: var(--accent);
+    background-color: #fff;
   }
   /* 랭귀지 버튼 */
   .lang-btn.is-active {
