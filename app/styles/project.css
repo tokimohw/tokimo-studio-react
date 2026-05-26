@@ -3,6 +3,9 @@
 
 .nav a {color: #f1f1f1;}
 
+.lang-btn.is-active {
+    color: var(--accent);
+}
 /* =========================================================
    MODERN ARCHIVE DESIGN SYSTEM - DESKTOP BASE
    ========================================================= */
@@ -419,4 +422,13 @@
     margin-top: 20px;
     padding-bottom: calc(10px + env(safe-area-inset-bottom));
   }
+
+  /* 햄버거 버튼 */
+  .menu-trigger {
+    color: var(--accent);
+  }
+
+  .lang-btn.is-active {
+    color: var(--accent);
+}
 }
