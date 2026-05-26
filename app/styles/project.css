@@ -427,7 +427,7 @@
   .menu-trigger {
     color: var(--accent);
   }
-
+  /* 랭귀지 버튼 */
   .lang-btn.is-active {
     color: var(--accent);
 }
