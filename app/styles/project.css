@@ -191,10 +191,6 @@
   transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.visual-frame:hover .active-img { 
-  transform: none !important;  
-}
-
 .visual-coord {
   position: absolute;
   bottom: -30px;
@@ -368,6 +364,10 @@
     transition: none !important; /* 이미지 변경 시 렉 걸리는 애니메이션 제거, 즉시 전환 */
     transform: none !important;  /* 기본 상태에서 확대 방지 */
   }
+
+  .visual-frame:hover .active-img { 
+  transform: none !important;  
+}
 
   .visual-coord {
     display: none; /* 불필요한 장식 요소 과감히 삭제 */
