@@ -426,7 +426,8 @@ body.menu-open {
   }
 
   /* 4. 기존 nav(메인메뉴)는 모바일에서 숨기기 (햄버거 메뉴가 있으므로) */
-  .header-right .nav {
+  .header-right .nav,
+  .header-right .lang-switcher {
     display: none; 
   }
 
