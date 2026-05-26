@@ -1,144 +1,437 @@
-.header,.footer {display: none;}
- 
-/* ===================== [TOKIMO x 1LDK STYLE] ===================== */
+/* ==========================================================================
+   00. LOCAL OVERRIDES (전역 오염 방지 및 완벽한 레이아웃 분리)
+   * 전역 헤더/푸터를 숨기되, 이 페이지의 독자적 헤더(.tokimo-minimal-nav)와 푸터는 예외 처리하여 살립니다.
+   ========================================================================== */
+body:has(.ldk-layout) header:not(.tokimo-minimal-nav),
+body:has(.ldk-layout) .header:not(.tokimo-minimal-nav),
+body:has(.ldk-layout) footer:not(.ldk-footer) {
+  display: none !important;
+}
+
+/* ==========================================================================
+   01. BRAND THEME & RESET (1LDK Minimalism)
+   ========================================================================== */
 :root {
   --ldk-bg: #ffffff;
   --ldk-fg: #000000;
   --ldk-border: #f0f0f0;
   --ldk-gray: #999999;
   --font-base: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Space Mono', Courier, monospace;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--ldk-bg); color: var(--ldk-fg); font-family: var(--font-base); -webkit-font-smoothing: antialiased; }
-
-/* Top Bar */
-.ldk-top-bar {
-  display: flex; justify-content: space-between; padding: 12px 20px;
-  border-bottom: 1px solid var(--ldk-border); font-size: 10px; letter-spacing: 0.05em;
-}
-.ldk-lang-switcher button, .ldk-user-nav button {
-  margin-right: 15px; color: var(--ldk-gray); transition: color 0.3s; background: none; border: none; cursor: pointer;
-}
-.ldk-lang-switcher button.active, .ldk-user-nav button:hover { color: var(--ldk-fg); }
-
-/* Header & Nav */
-.ldk-header { padding: 40px 20px; text-align: center; }
-.ldk-logo { font-size: 32px; font-weight: 900; letter-spacing: 0.2em; margin-bottom: 30px; cursor: pointer; }
-.ldk-main-nav ul { display: flex; justify-content: center; gap: 30px; list-style: none; }
-.ldk-main-nav li { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; cursor: pointer; }
-
-/* Hero Visual */
-.ldk-hero { padding: 0 20px; margin-bottom: 80px; }
-.hero-img-wrap { width: 100%; height: 75vh; position: relative; overflow: hidden; background: #f9f9f9; }
-.hero-img-wrap img { object-fit: cover; }
-.hero-caption {
-  position: absolute; bottom: 40px; left: 40px; color: #fff;
-}
-.hero-caption p { font-size: 12px; letter-spacing: 0.2em; margin-bottom: 10px; }
-.hero-caption span { font-size: 10px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
-
-/* Product Grid */
-.ldk-product-section { padding: 0 20px 100px; }
-.section-title { font-size: 14px; font-weight: 600; letter-spacing: 0.15em; margin-bottom: 30px; text-align: center; }
-
-.ldk-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 15px;
+.ldk-layout {
+  background-color: var(--ldk-bg);
+  color: var(--ldk-fg);
+  font-family: var(--font-base);
+  -webkit-font-smoothing: antialiased;
+  padding-top: 65px; /* 고정 헤더 영역 확보 */
+  overflow-x: hidden;
 }
 
-.ldk-card { cursor: pointer; }
-.ldk-img-vessel { position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #fcfcfc; }
-.ldk-img-vessel img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease; }
-.ldk-card:hover .ldk-img-vessel img { opacity: 0.8; }
-
-.ldk-tag {
-  position: absolute; top: 10px; left: 10px; background: #000; color: #fff;
-  font-size: 9px; padding: 4px 8px; font-weight: 600; z-index: 10;
-}
-
-.ldk-info { margin-top: 15px; text-align: left; }
-.ldk-p-brand { font-size: 10px; font-weight: 700; margin-bottom: 5px; color: #333; }
-.ldk-p-name { font-size: 11px; font-weight: 400; color: var(--ldk-gray); margin-bottom: 8px; letter-spacing: 0.02em; }
-.ldk-p-price { font-size: 11px; font-weight: 500; }
-.tax { font-size: 8px; opacity: 0.5; margin-left: 3px; }
-
-.view-all-btn {
-  display: block; width: 200px; margin: 60px auto 0; padding: 15px;
-  border: 1px solid #000; text-align: center; font-size: 10px; letter-spacing: 0.1em; cursor: pointer;
-}
-
-/* Footer */
-.ldk-footer { border-top: 1px solid var(--ldk-border); padding: 80px 20px 40px; }
-.footer-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
-.footer-col h4 { font-size: 11px; margin-bottom: 20px; letter-spacing: 0.1em; }
-.footer-col ul { list-style: none; }
-.footer-col li { font-size: 10px; color: var(--ldk-gray); margin-bottom: 10px; cursor: pointer; }
-.footer-bottom { grid-column: span 4; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--ldk-border); }
-.footer-bottom p { font-size: 9px; color: #ccc; letter-spacing: 0.05em; }
-
-/* 새로 추가*/
-/* 1. 기존 헤더 삭제 후 추가할 미니멀 내비게이션 */
+/* ==========================================================================
+   02. TOKIMO MINIMAL FIXED NAVIGATION
+   ========================================================================== */
 .tokimo-minimal-nav {
-  position: fixed; top: 0; left: 0; width: 100%;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 4vw; z-index: 1000;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4vw;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--ldk-border);
 }
 
-/* 2. 로고 허브 (티 안나지만 찾기 쉬운 버튼) */
-.logo-hub { position: relative; cursor: pointer; }
-.main-logo { font-size: 14px; font-weight: 900; letter-spacing: 0.15em; }
+/* Left: 로고 허브 */
+.logo-hub {
+  position: relative;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.main-logo {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
 
 .logo-menu {
-  position: absolute; top: 100%; left: 0;
-  display: none; flex-direction: column; gap: 10px;
-  background: #fff; padding: 15px; border: 1px solid #eee;
-  margin-top: 10px; min-width: 100px;
+  position: absolute;
+  top: 65px; left: -10px;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #fff;
+  padding: 18px 20px;
+  border: 1px solid var(--ldk-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  min-width: 140px;
 }
-.logo-hub:hover .logo-menu { display: flex; } /* 로고에 마우스 올리면 홈/프로젝트 메뉴 등장 */
 
-.logo-menu a {
-  font-size: 10px; font-family: var(--font-mono); 
-  color: #999; text-decoration: none; transition: 0.3s;
-}
-.logo-menu a:hover { color: #000; }
-
-/* 메뉴 박스 윗부분에 투명한 감지 영역을 만듭니다 */
+/* 로고와 하단 풀다운 메뉴 사이 마우스 이탈 방지 브릿지 */
 .logo-menu::before {
   content: "";
   position: absolute;
-  top: -20px; /* 로고와 메뉴 사이의 간격만큼 위로 확장 */
-  left: 0;
-  width: 100%;
-  height: 20px; /* 이 영역이 마우스를 잡아주는 다리 역할을 함 */
-  background: transparent; /* 투명해서 눈에는 안 보임 */
+  top: -20px; left: 0;
+  width: 100%; height: 20px;
+  background: transparent;
 }
 
-/* 3. 중앙 카테고리 (작동 가능하게) */
-.nav-center ul { display: flex; gap: 25px; list-style: none; }
+/* 데스크탑에서만 호버 메뉴 작동 (모바일 오작동 방지) */
+@media (hover: hover) and (pointer: fine) {
+  .logo-hub:hover .logo-menu {
+    display: flex;
+  }
+}
+
+.logo-menu a {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--ldk-gray);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.2s ease;
+}
+
+.logo-menu a:hover {
+  color: var(--ldk-fg);
+}
+
+/* Center: 카테고리 필터 내비게이션 */
+.nav-center ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
 .nav-center li {
-  font-size: 10px; font-weight: 500; color: #888;
-  cursor: pointer; transition: 0.3s;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ldk-gray);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 5px 0;
 }
-.nav-center li:hover { color: #000; }
 
-/* 4. 언어 스위처 (우측 정렬) */
-.lang-switcher { display: flex; gap: 12px; }
+.nav-center li:hover {
+  color: var(--ldk-fg);
+}
+
+/* [누락 수정] 카테고리 액티브 피드백 장착 */
+.nav-center li.active {
+  color: var(--ldk-fg);
+  font-weight: 700;
+  border-bottom: 1px solid var(--ldk-fg);
+}
+
+/* Right: 언어 스위처 */
+.lang-switcher {
+  display: flex;
+  gap: 14px;
+}
+
 .lang-switcher button {
-  font-size: 10px; background: none; border: none; 
-  color: #ccc; cursor: pointer; transition: 0.3s;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  padding: 4px 0;
+  letter-spacing: 0.05em;
+  transition: color 0.2s ease;
 }
-.lang-switcher button.active { color: #000; text-decoration: underline; }
 
-/* 5. 기존 레이아웃 여백 조정 */
-.ldk-layout { padding-top: 80px; } /* 헤더가 fixed이므로 본문을 내립니다 */
+.lang-switcher button:hover {
+  color: var(--ldk-fg);
+}
 
+.lang-switcher button.active {
+  color: var(--ldk-fg);
+  font-weight: 700;
+  border-bottom: 1px solid var(--ldk-fg);
+}
 
-/* Responsive */
+/* ==========================================================================
+   03. HERO VISUAL SECTION
+   ========================================================================== */
+.ldk-hero {
+  padding: 0 4vw;
+  margin-bottom: clamp(60px, 10vw, 100px);
+  margin-top: 20px;
+}
+
+.hero-img-wrap {
+  width: 100%;
+  height: 75vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+/* Next.js Image 컴포넌트 안전 장치 */
+.hero-img-wrap img {
+  object-fit: cover;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-caption {
+  position: absolute;
+  bottom: 40px; left: 4vw;
+  color: #fff;
+  z-index: 10;
+}
+
+.hero-caption p {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.hero-caption span {
+  font-size: 10px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+}
+
+/* ==========================================================================
+   04. PRODUCT GRID SECTION
+   ========================================================================== */
+.ldk-product-section {
+  padding: 0 4vw 120px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.ldk-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 60px 20px;
+}
+
+.ldk-card {
+  cursor: pointer;
+}
+
+.ldk-img-vessel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #fcfcfc;
+  margin-bottom: 15px;
+}
+
+.ldk-img-vessel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+/* 데스크탑 마우스 호버 효과 */
+@media (hover: hover) and (pointer: fine) {
+  .ldk-card:hover .ldk-img-vessel img {
+    opacity: 0.8;
+  }
+}
+
+.ldk-tag {
+  position: absolute;
+  top: 10px; left: 10px;
+  background-color: #000;
+  color: #fff;
+  font-size: 9px;
+  padding: 5px 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  z-index: 10;
+}
+
+.ldk-info {
+  text-align: left;
+}
+
+.ldk-p-brand {
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111;
+  letter-spacing: 0.05em;
+}
+
+.ldk-p-name {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ldk-gray);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.ldk-p-price {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.tax {
+  font-size: 9px;
+  color: #aaa;
+  margin-left: 5px;
+  font-family: var(--font-base);
+}
+
+.view-all-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  margin: 80px auto 0;
+  padding: 16px;
+  border: 1px solid #000;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .view-all-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
+/* ==========================================================================
+   05. FOOTER
+   ========================================================================== */
+.ldk-footer {
+  border-top: 1px solid var(--ldk-border);
+  padding: 80px 4vw 40px;
+  background-color: #fff;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-col h4 {
+  font-size: 11px;
+  margin-bottom: 25px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  font-size: 10px;
+  color: var(--ldk-gray);
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: color 0.2s;
+  letter-spacing: 0.05em;
+}
+
+.footer-col li:hover {
+  color: var(--ldk-fg);
+}
+
+.footer-bottom {
+  grid-column: span 4;
+  margin-top: 80px;
+  padding-top: 25px;
+  border-top: 1px solid var(--ldk-border);
+}
+
+.footer-bottom p {
+  font-size: 9px;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+/* ==========================================================================
+   06. RESPONSIVE & MOBILE (Simple & Clean)
+   ========================================================================== */
 @media (max-width: 1024px) {
-  .ldk-grid { grid-template-columns: repeat(2, 1fr); }
-  .ldk-main-nav { display: none; }
-  .footer-inner { grid-template-columns: repeat(2, 1fr); }
+  .ldk-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 15px;
+  }
+  .footer-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-bottom {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 모바일 네비게이션: 간격 축소 및 수평 스크롤 방어 */
+  .tokimo-minimal-nav {
+    padding: 0 5vw;
+  }
+  .nav-center ul {
+    gap: 15px;
+  }
+  .lang-switcher {
+    gap: 10px;
+  }
+  
+  .ldk-hero {
+    padding: 0; /* 모바일에서는 히어로 이미지가 풀와이드로 차게 끔 시원하게 */
+    margin-top: 0;
+  }
+  .hero-img-wrap {
+    height: 60vh;
+  }
+
+  .ldk-product-section {
+    padding: 60px 5vw 80px;
+  }
+  
+  /* 모바일 2열 유지, 간격 타이트하게 */
+  .ldk-grid {
+    gap: 30px 10px;
+  }
+  .ldk-p-name {
+    font-size: 11px;
+  }
+
+  /* 모바일 푸터: 1열로 떨어지게 하여 시인성 확보 */
+  .ldk-footer {
+    padding: 60px 5vw 30px;
+  }
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .footer-bottom {
+    grid-column: span 1;
+    margin-top: 40px;
+  }
 }
