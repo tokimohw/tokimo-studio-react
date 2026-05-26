@@ -1,66 +1,85 @@
-/* --- 00. Global Overrides --- */
-header, .header {
+/* ==========================================================================
+   00. LOCAL OVERRIDES (전역 오염 방지 수정)
+   * Furniture 페이지 내부 안에서만 기존 글로벌 헤더를 숨깁니다.
+   ========================================================================== */
+.furn-container ~ header,
+.furn-container ~ .header,
+:has(.furn-container) header,
+:has(.furn-container) .header {
   display: none !important;
 }
 
-/* --- 01. Base & Mood Container --- */
+/* 만약 위 코드가 레이아웃 구조상 안 먹힌다면, 가장 확실한 치트키는 아래 코드입니다 */
+body:has(.furn-container) header,
+body:has(.furn-container) .header {
+  display: none !important;
+}
+
+/* ==========================================================================
+   01. BASE & MOOD CONTAINER
+   ========================================================================== */
 .furn-container {
   font-family: 'Helvetica Neue', 'Pretendard', Arial, sans-serif;
-  /* transition: background 1s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s ease; */
-  transition: opacity 0.4s ease; /* 전환 속도 */
   min-height: 100vh;
   overflow-x: hidden;
+  /* [최적화] 배경/컬러 전환 시 레이아웃 재계산(Reflow) 방지 */
+  transition: opacity 0.4s ease, background-color 0.6s ease, color 0.6s ease;
+  will-change: opacity, background-color; 
 }
+
 .furn-container.is-switching {
-  opacity: 0; /* 언어 바뀔 때 살짝 사라짐 */
+  opacity: 0;
 }
 
-.mode-day { background: #F9F8F6; color: #1a1a1a; }
-.mode-night { background: #111111; color: #e0e0e0; }
+.mode-day { background-color: #F9F8F6; color: #1a1a1a; }
+.mode-night { background-color: #111111; color: #e0e0e0; }
 
-/* --- 02. EE Style Navigation --- */
+/* ==========================================================================
+   02. EE STYLE NAVIGATION
+   ========================================================================== */
 .ee-nav {
   position: fixed;
   top: 0; left: 0; width: 100%;
   z-index: 3000;
   padding: 30px 4vw 20px;
-  background: transparent;
-  transition: background 0.3s ease;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
 }
-
-.ee-nav:hover { background: inherit; }
 
 .nav-top-line {
   display: flex; justify-content: space-between; align-items: center;
   font-size: 10px; letter-spacing: 0.15em; margin-bottom: 25px;
 }
 
-.lang-toggle {
-    gap: 12px;
-    display: flex;
-}
+.lang-toggle { gap: 12px; display: flex; }
 
 .logo-center {
   font-size: 18px; font-weight: 600;
   letter-spacing: 0.3em; text-transform: uppercase;
 }
+.logo-center a { color: inherit; text-decoration: none; }
+
+.nav-right-icons { font-size: 10px; letter-spacing: 0.15em; }
 
 .nav-menu-list {
   display: flex; justify-content: center; gap: 50px;
   list-style: none; font-size: 12px; letter-spacing: 0.1em;
+  margin: 0; padding: 0;
 }
 
 .nav-item { padding-bottom: 10px; cursor: pointer; }
 
 /* Dropdown (Mega Menu) */
 .nav-dropdown {
-  position: fixed;
+  position: absolute;
   top: 115px; left: 0; width: 100vw;
   background-color: #F9F8F6; 
   border-top: 1px solid rgba(0,0,0,0.05);
   border-bottom: 1px solid rgba(0,0,0,0.08);
   height: 0; overflow: hidden;
+  /* [최적화] height 애니메이션 렉(Layout Thrashing) 완화 */
   transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease;
+  will-change: height, opacity;
   opacity: 0; pointer-events: none;
   z-index: 2900;
   box-shadow: 0 20px 40px rgba(0,0,0,0.03);
@@ -77,39 +96,44 @@ header, .header {
 .dropdown-inner {
   max-width: 1400px; margin: 0 auto; padding: 60px 4vw;
   display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;
-  background: transparent;
+  background-color: transparent;
 }
 
 .drop-col h4 { font-size: 10px; color: #999; margin-bottom: 25px; letter-spacing: 0.1em; }
 .drop-col a { 
   display: block; font-size: 15px; margin-bottom: 14px; 
   text-decoration: none; color: inherit; opacity: 0.6;
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.drop-col a:hover { opacity: 1; transform: translateX(5px); }
 
 .drop-img-wrap {
   width: 100%; aspect-ratio: 16/9; position: relative; 
-  margin-bottom: 15px; background: #eee; overflow: hidden;
+  margin-bottom: 15px; background-color: #eee; overflow: hidden;
 }
 
-/* --- 03. Interaction Elements --- */
+.drop-col p { font-size: 12px; opacity: 0.7; }
+
+/* ==========================================================================
+   03. INTERACTION ELEMENTS
+   ========================================================================== */
 .mood-toggle-btn {
   position: fixed; right: 4vw; bottom: 4vw; z-index: 100;
-  background: transparent; border: 1px solid currentColor;
+  background-color: #f1f1f1; border: 1px solid currentColor;
+  color: #1a1a1a;
   padding: 12px 24px; font-size: 11px; letter-spacing: 0.1em;
   cursor: pointer; border-radius: 40px;
   display: flex; align-items: center; gap: 10px;
-  transition: all 0.3s ease;
-  background-color: #f1f1f1;
+  /* [최적화] transition: all 금지 (불필요한 속성 연산 차단) */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.mood-toggle-btn .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
-.mood-toggle-btn:hover { background: currentColor; color: inherit; }
-.mode-day .mood-toggle-btn:hover { color: #fff; background: #111; }
-.mode-night .mood-toggle-btn:hover { color: #111; background: #fff; }
+.mood-toggle-btn .dot { width: 6px; height: 6px; background-color: currentColor; border-radius: 50%; }
 
-/* --- 04. Content Sections --- */
+.mode-night .mood-toggle-btn { background-color: #1a1a1a; color: #e0e0e0; }
+
+/* ==========================================================================
+   04. CONTENT SECTIONS (Hero)
+   ========================================================================== */
 .furn-hero-section {
   height: 90vh; display: flex; align-items: center;
   justify-content: center; text-align: center;
@@ -122,7 +146,9 @@ header, .header {
   line-height: 1.1; letter-spacing: -0.01em; text-transform: uppercase;
 }
 
-/* --- 05. Sophisticated Asymmetric Grid --- */
+/* ==========================================================================
+   05. SOPHISTICATED ASYMMETRIC GRID
+   ========================================================================== */
 .furn-grid-section {
   padding: 100px 4vw; 
   display: flex; 
@@ -131,7 +157,7 @@ header, .header {
 
 .grid-container {
   display: grid; 
-  grid-template-columns: repeat(10, 1fr); /* 10컬럼 시스템 */
+  grid-template-columns: repeat(10, 1fr); 
   gap: 100px 130px; 
   max-width: 1300px; 
   width: 100%;
@@ -143,37 +169,37 @@ header, .header {
   flex-direction: column; 
 }
 
-/* 미세한 사이즈 및 위치 차이 부여 */
-.furn-card.size-a { grid-column: span 5; } /* 10칸 중 5칸 */
-.furn-card.size-b { grid-column: span 4; margin-top: 80px; } /* 10칸 중 4칸 + 하단 이동 */
-.furn-card.size-c { grid-column: span 4;} /* 중앙 정렬 효과 */
+.furn-card.size-a { grid-column: span 5; } 
+.furn-card.size-b { grid-column: span 4; margin-top: 80px; } 
+.furn-card.size-c { grid-column: span 4; } 
 
-/* 모든 이미지를 4:5 비율로 강제 고정 */
 .furn-img-container {
   position: relative; width: 100%; 
-  aspect-ratio: 4 / 5; /* 비율 통일 */
+  aspect-ratio: 4 / 5; 
   overflow: hidden;
-  background: #f0f0f0; 
+  background-color: #f0f0f0; 
+  /* [최적화] 하드웨어 가속(GPU) 강제 할당으로 이미지 호버 시 버벅임(Jitter) 제거 */
   transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0); 
 }
 
-.mode-night .furn-img-container { background: #1a1a1a; }
+.mode-night .furn-img-container { background-color: #1a1a1a; }
 
 .object-shadow-layer {
   position: absolute; inset: 0;
   background: radial-gradient(circle at 50% 85%, rgba(0,0,0,0.2), transparent 75%);
   opacity: 0; transition: opacity 1s ease;
+  pointer-events: none;
 }
 
-.furn-card:hover .object-shadow-layer { opacity: 1; }
-.furn-card:hover .furn-img-container { transform: translateY(-10px); }
-
-/* --- 06. Meta Info (좌우 분할 구조) --- */
+/* ==========================================================================
+   06. META INFO
+   ========================================================================== */
 .furn-meta {
   margin-top: 25px; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: flex-start;
+  display: flex; justify-content: space-between; align-items: flex-start;
   border-top: 1px solid rgba(0,0,0,0.05); 
   padding-top: 15px;
 }
@@ -182,50 +208,97 @@ header, .header {
 
 .meta-left { text-align: left; }
 .item-num { font-size: 10px; color: #999; font-family: serif; display: block; margin-bottom: 5px; }
-.item-name { font-size: 15px; font-weight: 400; letter-spacing: 0.05em; }
+.item-name { font-size: 15px; font-weight: 400; letter-spacing: 0.05em; margin: 0; }
 
 .meta-right { text-align: right; }
 .item-info { font-size: 10px; color: #888; display: block; margin-bottom: 4px; letter-spacing: 0.05em; }
 
-/* --- 07. Custom Footer --- */
-.furn-custom-footer {
-  padding: 150px 4vw 60px; border-top: 1px solid rgba(0,0,0,0.05); background: inherit;
-}
+/* ==========================================================================
+   07. CUSTOM FOOTER & NEXT PROJECT
+   ========================================================================== */
+.project-footer { border-top: 1px solid #f0f0f0; padding: 60px 4vw; text-align: left; }
+.mode-night .project-footer { border-color: rgba(255,255,255,0.05); }
 
+.next-project-link { font-size: 11px; color: #888; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: opacity 0.3s ease; }
+.next-project-link .arrow { font-weight: 800; color: #ccc; }
+.next-project-link .title { color: inherit; font-weight: 600; margin-left: 10px; }
+
+.furn-custom-footer {
+  padding: 150px 4vw 60px; border-top: 1px solid rgba(0,0,0,0.05); background-color: transparent;
+}
 .mode-night .furn-custom-footer { border-color: rgba(255,255,255,0.05); }
 
 .footer-top {
   display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 120px;
 }
 
-.footer-logo { font-size: 20px; font-weight: 600; letter-spacing: 0.4em; }
+.footer-logo { font-size: 20px; font-weight: 600; letter-spacing: 0.4em; margin: 0; }
 .footer-contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 100px; }
 .contact-item .label { font-size: 10px; color: #999; letter-spacing: 0.2em; display: block; margin-bottom: 25px; }
-.contact-item p, .contact-item a { font-size: 13px; line-height: 2; color: inherit; text-decoration: none; opacity: 0.7; display: block; }
+.contact-item p, .contact-item a { font-size: 13px; line-height: 2; color: inherit; text-decoration: none; opacity: 0.7; display: block; margin: 0; transition: opacity 0.3s ease; }
 
 .footer-bottom {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.05);
   font-size: 10px; color: #aaa; letter-spacing: 0.1em;
 }
-
 .mode-night .footer-bottom { border-color: rgba(255,255,255,0.05); }
 
 
-/* 06. Footer */
-.project-footer { border-top: 1px solid #f0f0f0; padding: 60px 4vw; text-align: left; }
-.next-project-link { font-size: 11px; color: #888; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-.next-project-link .arrow { font-weight: 800; color: #ccc; }
-.next-project-link .title { color: #333; font-weight: 600; margin-left: 10px; }
-.next-project-link:hover { opacity: 0.6; }
+/* ==========================================================================
+   08. DESKTOP HOVER STATES (모바일 Sticky Hover 버그 방지)
+   * 마우스가 있는(pointer: fine) 기기에서만 호버 애니메이션이 작동하도록 분리
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  .drop-col a:hover { opacity: 1; transform: translateX(5px); }
+  
+  .mode-day .mood-toggle-btn:hover { background-color: #111; color: #fff; }
+  .mode-night .mood-toggle-btn:hover { background-color: #fff; color: #111; }
+  
+  .furn-card:hover .object-shadow-layer { opacity: 1; }
+  .furn-card:hover .furn-img-container { transform: translateY(-10px) translate3d(0, 0, 0); }
+  
+  .next-project-link:hover { opacity: 0.6; }
+  .contact-item a:hover { opacity: 1; }
+}
 
-/* --- 08. Responsive --- */
+
+/* ==========================================================================
+   09. RESPONSIVE & MOBILE OPTIMIZATION (UNDER 1024px / 768px)
+   ========================================================================== */
 @media (max-width: 1024px) {
   .grid-container { grid-template-columns: 1fr; gap: 60px; }
-  .furn-card.size-a, .furn-card.size-b, .furn-card.size-c { grid-column: span 1; margin-top: 0; grid-column-start: auto; }
-  .footer-top { flex-direction: column; gap: 60px; }
+  .furn-card.size-a, .furn-card.size-b, .furn-card.size-c { grid-column: span 1; margin-top: 0; }
+  .footer-top { flex-direction: column; gap: 60px; margin-bottom: 80px; }
   .footer-contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .nav-menu-list { gap: 20px; font-size: 11px; }
-  .nav-dropdown.is-active { height: auto; padding-bottom: 40px; }
   .dropdown-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  /* 네비게이션 모바일 최적화 */
+  .ee-nav { padding: max(20px, env(safe-area-inset-top)) 5vw 20px; }
+  .mode-day .ee-nav { background-color: rgba(249, 248, 246, 0.95); }
+  .mode-night .ee-nav { background-color: rgba(17, 17, 17, 0.95); }
+  
+  .nav-top-line { flex-wrap: wrap; gap: 15px; margin-bottom: 0; }
+  .nav-top-line .logo-center { width: 100%; text-align: center; order: -1; margin-bottom: 5px; }
+  .nav-menu-list { display: none !important; }
+
+  /* 텍스트 사이즈 & 여백 */
+  .furn-hero-section { height: 65vh; min-height: 400px; }
+  .furn-hero-section h1 { font-size: clamp(32px, 12vw, 55px); word-break: keep-all; }
+  
+  .furn-grid-section { padding: 40px 6vw; }
+  .grid-container { gap: 60px; }
+  .furn-meta { margin-top: 15px; padding-top: 12px; }
+
+  /* 렌더링 렉 방지 (무거운 효과 삭제) */
+  .object-shadow-layer { display: none !important; }
+
+  /* 토글 버튼 터치 편의성 */
+  .mood-toggle-btn { bottom: 25px; right: 5vw; padding: 12px 20px; font-size: 10px; }
+
+  /* 푸터 모바일 정렬 */
+  .furn-custom-footer { padding: 80px 6vw 40px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 20px; padding-top: 30px; }
 }
