@@ -11,59 +11,69 @@ export default function Header() {
   // 🔥 모바일 메뉴 개폐 상태 관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 모바일 메뉴가 열렸을 때 배경 스크롤 차단 및 Next.js 라우트 변경 시 메뉴 닫기
+  // 모바일 메뉴가 열렸을 때 배경 스크롤 차단 (기존 CSS의 body.menu-open과 매칭)
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.classList.add("modal-open");
+      document.body.classList.add("menu-open"); // 🔥 modal-open -> menu-open 으로 수정
     } else {
-      document.body.classList.remove("modal-open");
+      document.body.classList.remove("menu-open");
     }
   }, [isMenuOpen]);
 
+  // 페이지 이동 시 메뉴 강제 닫기
   useEffect(() => {
-    setIsMenuOpen(false); // 페이지 이동 시 메뉴 닫기
+    setIsMenuOpen(false);
   }, [pathname]);
 
   return (
-    <header className="header">
-      <div className="logo">
-        <a href="/">TOKIMO</a>
-      </div>
-      
-      {/* 모바일 오버레이를 위해 header-right에 mobile-active 클래스 연동 
-        (모바일 전용 메뉴창이 필요할 경우를 대비)
-      */}
-      <div className={`header-right ${isMenuOpen ? "mobile-active" : ""}`}>
-        <nav className="lang-switcher">
-          {(['ko', 'jp', 'en'] as const).map((l, idx) => (
-            <React.Fragment key={l}>
-              <button 
-                className={`lang-btn ${lang === l ? 'is-active' : ''}`}
-                onClick={() => setLang(l)}
-              >
-                {l.toUpperCase()}
-              </button>
-              {idx < 2 && <span className="sep">/</span>}
-            </React.Fragment>
-          ))}
-        </nav>
+    <>
+      <header className="header">
+        <div className="logo">
+          <a href="/">TOKIMO</a>
+        </div>
         
-        <nav className="nav">
-          <Link href="/about" className={pathname === '/about' ? 'active' : ''}>{t('nav-about')}</Link>
-          <Link href="/project" className={pathname === '/project' ? 'active' : ''}>{t('nav-project')}</Link>
-          <Link href="/connect" className={pathname === '/connect' ? 'active' : ''}>{t('nav-connect')}</Link>
+        <div className="header-right">
+          <nav className="lang-switcher">
+            {(['ko', 'jp', 'en'] as const).map((l, idx) => (
+              <React.Fragment key={l}>
+                <button 
+                  className={`lang-btn ${lang === l ? 'is-active' : ''}`}
+                  onClick={() => setLang(l)}
+                >
+                  {l.toUpperCase()}
+                </button>
+                {idx < 2 && <span className="sep">/</span>}
+              </React.Fragment>
+            ))}
+          </nav>
+          
+          {/* 데스크탑 전용 메뉴 (모바일에서는 CSS로 자동 숨김 처리됨) */}
+          <nav className="nav">
+            <Link href="/about" className={pathname === '/about' ? 'active' : ''}>{t('nav-about')}</Link>
+            <Link href="/project" className={pathname === '/project' ? 'active' : ''}>{t('nav-project')}</Link>
+            <Link href="/connect" className={pathname === '/connect' ? 'active' : ''}>{t('nav-connect')}</Link>
+          </nav>
+        </div>
+
+        {/* 햄버거 버튼 */}
+        <div 
+          className={`menu-trigger ${isMenuOpen ? "is-active" : ""}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </header>
+
+      {/* 🔥 누락되어 있던 모바일 전용 오버레이 추가 (기존 globals.css 완벽 매칭) */}
+      <div className={`mobile-menu-overlay ${isMenuOpen ? "is-active" : ""}`}>
+        <nav className="mobile-nav-links">
+          <Link href="/about" onClick={() => setIsMenuOpen(false)}>{t('nav-about')}</Link>
+          <Link href="/project" onClick={() => setIsMenuOpen(false)}>{t('nav-project')}</Link>
+          <Link href="/connect" onClick={() => setIsMenuOpen(false)}>{t('nav-connect')}</Link>
         </nav>
       </div>
-
-      {/* 🔥 globals.css의 .menu-trigger 스타일에 완벽 매칭 */}
-      <div 
-        className={`menu-trigger ${isMenuOpen ? "is-active" : ""}`}
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </header>
+    </>
   );
 }
