@@ -416,6 +416,40 @@ body.menu-open .lang-switcher {
 }
 
 
+/* ==========================================================================
+   11. SMART HEADER THEME CONTROLLER (SPA CSS LEAKAGE FIX)
+   * 현재 렌더링된 페이지 컴포넌트를 감지하여 헤더 색상을 동적으로 스위칭합니다.
+   ========================================================================== */
+
+/* 화면에 다크 페이지(.project-archive-page 또는 .connect-page)가 켜져 있을 때만 로고와 메뉴 글씨를 흰색으로 덮음 */
+body:has(.project-archive-page) .header .logo a,
+body:has(.project-archive-page) .header .nav a,
+body:has(.connect-page) .header .logo a,
+body:has(.connect-page) .header .nav a {
+  color: #ffffff !important;
+}
+
+/* 화면에 다크 페이지가 켜져 있을 때 햄버거 버튼(span)의 선 색상도 흰색으로 덮음 */
+body:has(.project-archive-page) .menu-trigger span,
+body:has(.connect-page) .menu-trigger span {
+  background-color: #ffffff !important;
+}
+
+/* 활성화된 랭귀지 버튼 포인트 컬러 (Connect 페이지 등에 적용) */
+body:has(.project-archive-page) .lang-btn.is-active,
+body:has(.connect-page) .lang-btn.is-active {
+  color: #c5a358 !important;
+}
+
+/* 프로젝트 페이지 전용 푸터 다크모드 동기화 */
+/* body:has(.project-archive-page) footer,
+body:has(.project-archive-page) footer p,
+body:has(.project-archive-page) footer a {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+} */
+
+
 /* [Mobile Optimization] */
 @media (max-width: 1100px) {
   .side-info { display: none; }
@@ -496,5 +530,23 @@ body.menu-open .lang-switcher {
     text-align: left;
     grid-column: span 2;
     margin-top: 20px;
+  }
+
+
+  /* [핵심] 메뉴 오버레이 배경색을 무조건 밝은 테마로 고정 (검정 로고/X가 보이도록)
+     앞서 Project/Connect 페이지용 다크 오버레이 코드를 넣으셨다면, 이 코드가 덮어씌워야 합니다. */
+  .mobile-menu-overlay.is-active {
+    background-color: var(--bg-color) !important; /* globals.css 상단에 정의된 밝은 회색 계열 */
+  }
+
+  /* 1. 메뉴 열림 상태(body.menu-open)에서 로고 색상을 검정색으로 반전 */
+  body.menu-open .header .logo a {
+    color: #1a1a1a !important;   /* globals.css 상단 --text-main 색상 */
+    z-index: 1000007 !important; /* 메뉴판 위로 확실히 나오도록 레이어 순위 상향 */
+  }
+
+  /* 2. 메뉴 열림 상태(body.menu-open)에서 X 버튼(span) 색상을 검정색으로 반전 */
+  body.menu-open .menu-trigger span {
+    background-color: #1a1a1a !important;
   }
 }
