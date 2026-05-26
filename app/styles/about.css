@@ -264,4 +264,40 @@
   .quote-text {
     font-size: 20px;
   }
+
+
+
+  /* 1. Flex & Grid 자식 컨테이너의 무한 팽창 락(Lock) */
+  .philo-text,
+  .content-column,
+  .note-container {
+    min-width: 0 !important; /* Flex/Grid 안에서 텍스트 길이에 맞춰 늘어나는 현상 완벽 차단 */
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word; /* 부모 영역을 넘어가는 텍스트 강제 절단 */
+  }
+
+  /* 2. 일본어 텍스트가 뚫고 나가는 현상 강제 차단 (word-break 리셋) */
+  .philo-text h2,
+  .philo-text p,
+  .presence-title,
+  .presence-desc,
+  .note-desc {
+    /* keep-all을 해제하여 일본어도 자연스럽게 줄바꿈되도록 허용 */
+    word-break: normal !important; 
+    
+    /* 긴 한자나 영어 링크가 있어도 무조건 화면 너비 안에서 줄바꿈 */
+    overflow-wrap: anywhere !important; 
+    white-space: normal !important;
+    
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 5px; /* 우측에 미세한 숨통을 주어 벽에 부딪히는 느낌 방지 */
+  }
+
+  /* 3. 모바일 레이아웃 패딩 여백 최종 교정 (화면 이탈 방지) */
+  .presence-section .container {
+    padding: 0 6% !important; /* Grid 컨테이너가 화면 밖으로 나가지 않게 조율 */
+    overflow-x: hidden;
+  }
 }
