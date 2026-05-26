@@ -4,7 +4,7 @@
 .nav a {color: #f1f1f1;}
 
 /* =========================================================
-   MODERN ARCHIVE DESIGN SYSTEM
+   MODERN ARCHIVE DESIGN SYSTEM - DESKTOP BASE (기존 사양 유지)
    ========================================================= */
 
 .project-archive-page {
@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 
-/* ⚠️ 글로벌 로고 & 푸터 강제 화이트 반전 (현우님 요청사항) */
+/* ⚠️ 글로벌 로고 & 푸터 강제 화이트 반전 (현우님 요청사항 유지) */
 :global(.header .logo), 
 :global(.header nav a),
 :global(header svg),
@@ -107,6 +107,7 @@
 .text-frame {
   flex: 1.3;
   animation: fadeIn 1s ease forwards;
+  min-width: 0; /* 자식 텍스트 팽창 방지 락 */
 }
 
 @keyframes fadeIn {
@@ -253,9 +254,149 @@
   font-weight: 600;
 }
 
-/* --- Responsive --- */
+
+/* =========================================================
+   🔥 PERFECT MOBILE RESPONSIVE OPTIMIZATION (UNDER 1024px & 768px)
+   ========================================================= */
+
+/* 1. 패드 및 미디엄 스크린 방어선 */
 @media (max-width: 1024px) {
-  .main-content { flex-direction: column; align-items: flex-start; gap: 40px; }
-  .visual-frame { width: 100%; }
-  .project-timeline { display: none; }
+  .project-archive-page {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    overflow-y: auto;
+  }
+
+  .editorial-layout {
+    height: auto; /* 고정 높이 해제, 컨텐츠 흐름에 맡김 */
+    min-height: initial;
+    flex-direction: column;
+    padding: 0 6%;
+  }
+
+  .main-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+    width: 100%;
+  }
+
+  .text-frame, .visual-frame {
+    width: 100%;
+    flex: none;
+  }
+
+  /* 타임라인 제거 대신 하단 가로 정렬로 변환해 인터랙션 유지 */
+  .project-timeline {
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 0;
+    margin-top: 50px;
+    width: 100%;
+    gap: 15px;
+  }
+
+  .timeline-bar {
+    width: 20px; /* 모바일 대응 선 단축 */
+  }
+}
+
+/* 2. 스마트폰 환경 최종 방어선 (아이폰 15 Pro, 다국어 뚫림 완벽 해결) */
+@media (max-width: 768px) {
+  .project-archive-page {
+    padding-top: calc(80px + env(safe-area-inset-top)); /* 노치 세이프 존 */
+  }
+
+  /* 상단 메타데이터 수평 정렬 배치 */
+  .side-metadata {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+  }
+
+  .metadata-top {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .idx-large {
+    font-size: 36px; /* 모바일에 맞는 럭셔리한 크기로 축소 */
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .cat-label {
+    writing-mode: horizontal-tb; /* 가로 읽기로 전환 */
+    font-size: 10px;
+  }
+
+  /* 다국어(일본어) 줄바꿈 파괴 버그 완벽 차단 */
+  .project-heading {
+    font-size: clamp(26px, 8vw, 36px); /* 타이틀 크기 최적화 */
+    line-height: 1.2;
+    margin-bottom: 20px;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important; /* 일본어 밀림 방지 */
+  }
+
+  .project-summary {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #ccc;
+    margin-bottom: 35px;
+    max-width: 100%;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .project-tags {
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* 태그가 많아져도 아래로 떨어지게 설정 */
+    gap: 8px;
+  }
+
+  /* 비주얼 프레임 모바일 비례 제어 */
+  .img-container {
+    aspect-ratio: 16 / 11; /* 스마트폰 스크롤을 배려한 와이드 비율 매칭 */
+  }
+
+  .visual-coord {
+    bottom: -22px;
+    font-size: 8px;
+  }
+
+  /* 모바일 하단 슬라이드 네비게이터 (미니멀 도트 스타일) */
+  .project-timeline {
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+  
+  .timeline-bar {
+    display: none; /* 모바일에서는 선을 숨기고 숫자만 깔끔하게 노출 */
+  }
+  
+  .timeline-item {
+    padding: 8px 12px; /* 터치 영역 확장 */
+    gap: 0;
+  }
+
+  .timeline-label {
+    font-size: 12px;
+  }
+
+  /* 언어 바 위치 안정화 (앱 구조 오버랩 방지) */
+  .bottom-lang-bar {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
 }
