@@ -39,7 +39,7 @@ export default function TokimoStore() {
           <div className="logo-hub">
             <span className="main-logo">TOKIMO</span>
             <div className="logo-menu">
-              <Link href="/">HOME</Link>
+              <a href="/">HOME</a>
               <Link href="/project">PROJECT</Link>
             </div>
           </div>
