@@ -399,6 +399,23 @@ body.menu-open {
 
 .mobile-menu-overlay.is-active .mobile-nav-links a { opacity: 1; transform: translateY(0); }
 
+/* ==========================================================================
+   9. PROJECT PAGE OVERRIDE (MOBILE MENU CONFLICT FIX)
+   * 햄버거 메뉴(body.menu-open) 활성화 시 프로젝트 페이지의 랭귀지 바 완벽 차단
+   ========================================================================== */
+body.menu-open .lang-switcher {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 혹시 모를 레이어 간섭을 방지하기 위해 오버레이의 배경을 확실히 덮음 */
+.mobile-menu-overlay.is-active {
+  background-color: var(--bg-color) !important;
+}
+
+
 /* [Mobile Optimization] */
 @media (max-width: 1100px) {
   .side-info { display: none; }
