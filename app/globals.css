@@ -532,7 +532,7 @@ body:has(.project-archive-page) footer a {
     margin-top: 20px;
   }
 
-
+  /* 햄버거 버튼 */
   /* [핵심] 메뉴 오버레이 배경색을 무조건 밝은 테마로 고정 (검정 로고/X가 보이도록)
      앞서 Project/Connect 페이지용 다크 오버레이 코드를 넣으셨다면, 이 코드가 덮어씌워야 합니다. */
   .mobile-menu-overlay.is-active {
