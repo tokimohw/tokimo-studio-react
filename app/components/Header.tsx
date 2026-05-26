@@ -8,89 +8,62 @@ import { usePathname } from "next/navigation";
 export default function Header() {
   const { lang, setLang, t } = useLanguage();
   const pathname = usePathname();
+  // 🔥 모바일 메뉴 개폐 상태 관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 모바일 메뉴 오픈 시 바디 스크롤 차단
+  // 모바일 메뉴가 열렸을 때 배경 스크롤 차단 및 Next.js 라우트 변경 시 메뉴 닫기
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.classList.add("modal-open");
     } else {
-      document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [isMenuOpen]);
 
-  // 페이지 이동 시 메뉴 자동으로 닫기
   useEffect(() => {
-    setIsMenuOpen(false);
+    setIsMenuOpen(false); // 페이지 이동 시 메뉴 닫기
   }, [pathname]);
 
   return (
-    <>
-      <header className="brand-header">
-        <div className="header-logo">
-          <Link href="/">TOKIMO</Link>
-        </div>
+    <header className="header">
+      <div className="logo">
+        <a href="/">TOKIMO</a>
+      </div>
+      
+      {/* 모바일 오버레이를 위해 header-right에 mobile-active 클래스 연동 
+        (모바일 전용 메뉴창이 필요할 경우를 대비)
+      */}
+      <div className={`header-right ${isMenuOpen ? "mobile-active" : ""}`}>
+        <nav className="lang-switcher">
+          {(['ko', 'jp', 'en'] as const).map((l, idx) => (
+            <React.Fragment key={l}>
+              <button 
+                className={`lang-btn ${lang === l ? 'is-active' : ''}`}
+                onClick={() => setLang(l)}
+              >
+                {l.toUpperCase()}
+              </button>
+              {idx < 2 && <span className="sep">/</span>}
+            </React.Fragment>
+          ))}
+        </nav>
         
-        <div className="header-right-zone">
-          {/* 다국어 선택기 (전체 환경 공통 노출) */}
-          <nav className="brand-lang-switcher">
-            {(['ko', 'jp', 'en'] as const).map((l, idx) => (
-              <React.Fragment key={l}>
-                <button 
-                  className={`brand-lang-btn ${lang === l ? 'is-active' : ''}`}
-                  onClick={() => setLang(l)}
-                >
-                  {l.toUpperCase()}
-                </button>
-                {idx < 2 && <span className="brand-sep">/</span>}
-              </React.Fragment>
-            ))}
-          </nav>
-          
-          {/* 데스크탑 전용 메인 내비게이션 */}
-          <nav className="desktop-nav">
-            <Link href="/about" className={pathname === '/about' ? 'active' : ''}>{t('nav-about')}</Link>
-            <Link href="/project" className={pathname === '/project' ? 'active' : ''}>{t('nav-project')}</Link>
-            <Link href="/connect" className={pathname === '/connect' ? 'active' : ''}>{t('nav-connect')}</Link>
-          </nav>
-        </div>
-
-        {/* 🍔 모바일 전용 미니멀 햄버거 트리거 */}
-        <button 
-          className={`modern-menu-trigger ${isMenuOpen ? "is-active" : ""}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          <span className="trigger-line"></span>
-          <span className="trigger-line"></span>
-        </button>
-      </header>
-
-      {/* 📱 모바일 풀스크린 오버레이 내비게이션 */}
-      <div className={`modern-mobile-overlay ${isMenuOpen ? "is-open" : ""}`}>
-        <div className="overlay-bg" onClick={() => setIsMenuOpen(false)}></div>
-        <nav className="mobile-menu-links">
-          <Link href="/about" className={pathname === '/about' ? 'active' : ''}>
-            {t('nav-about')}
-          </Link>
-          <Link href="/project" className={pathname === '/project' ? 'active' : ''}>
-            {t('nav-project')}
-          </Link>
-          <Link href="/connect" className={pathname === '/connect' ? 'active' : ''}>
-            {t('nav-connect')}
-          </Link>
+        <nav className="nav">
+          <Link href="/about" className={pathname === '/about' ? 'active' : ''}>{t('nav-about')}</Link>
+          <Link href="/project" className={pathname === '/project' ? 'active' : ''}>{t('nav-project')}</Link>
+          <Link href="/connect" className={pathname === '/connect' ? 'active' : ''}>{t('nav-connect')}</Link>
         </nav>
       </div>
 
-      {/* 모바일 하단 플로팅 브랜딩 바 (기존 사양 유지) */}
-      <div className="mobile-bottom-nav">
-        <Link href="/about" className={pathname === '/about' ? 'active' : ''}>Vision</Link>
-        <Link href="/project" className={pathname === '/project' ? 'active' : ''}>Archive</Link>
-        <Link href="/connect" className={pathname === '/connect' ? 'active' : ''}>Connect</Link>
+      {/* 🔥 globals.css의 .menu-trigger 스타일에 완벽 매칭 */}
+      <div 
+        className={`menu-trigger ${isMenuOpen ? "is-active" : ""}`}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </>
+    </header>
   );
 }

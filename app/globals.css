@@ -318,119 +318,86 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   TOKIMO MODERN NAVIGATION SYSTEM (RESET & REDESIGN)
+   8. MOBILE NAVIGATION & RESPONSIVE
    ========================================================================== */
-
-.brand-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 5vw;
-  z-index: 99999;
-  background: transparent;
-}
-
-.header-logo a {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: #fff !important;
-  text-decoration: none;
-}
-
-.header-right-zone {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-/* 다국어 스위처 */
-.brand-lang-switcher {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.brand-lang-btn {
-  background: none;
-  border: none;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  padding: 4px;
-  transition: color 0.3s ease;
-}
-
-.brand-lang-btn.is-active,
-.brand-lang-btn:hover {
-  color: #fff;
-}
-
-.brand-sep {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.15);
-}
-
-/* 데스크탑 메인 메뉴 */
-.desktop-nav {
-  display: flex;
-  gap: 30px;
-}
-
-.desktop-nav a {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.3s ease;
-}
-
-.desktop-nav a.active,
-.desktop-nav a:hover {
-  color: #fff;
-}
-
-/* 🍔 햄버거 트리거 버튼 (데스크탑에서는 철저하게 숨김) */
-.modern-menu-trigger {
-  display: none !important; /* 핵심 방어 코드 */
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Menu Trigger (Hamburger) */
+.menu-trigger {
+  display: none !important;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  gap: 6px;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  z-index: 1000006;
+  gap: 7px;
+  position: fixed;
+  
+  /* [핵심] 상단 패딩만큼 버튼 위치를 아래로 내려 가독성 확보 */
+  top: calc(25px + env(safe-area-inset-top)); 
+  right: 8%;
+  
+  width: 30px; height: 30px;
+  z-index: 10005; /* 오버레이(10000)보다 위에 배치 */
+  cursor: pointer;
+  transition: transform 0.5s ease;
 }
 
-.trigger-line {
+.menu-trigger span {
+  width: 24px; 
+  height: 1px;
+  background-color: #1a1a1a;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-trigger.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-trigger.is-active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+.menu-trigger.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* 4. 배경 스크롤 차단 강제화 */
+body.menu-open {
+    overflow: hidden !important;
+    height: 100dvh !important;
+    position: fixed !important;
+    width: 100% !important;
+}
+
+
+/* Fullscreen Overlay */
+.mobile-menu-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  background-color: var(--bg-color) !important;
+  z-index: 1000000 !important; /* 버튼보다는 아래, 본문보다는 위 */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, visibility 0.4s;
+  
+/* [수정] 노치 영역부터 메뉴 시작하도록 패딩 설정 */
+  padding-top: var(--sat) !important;
+  padding-bottom: var(--sab) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-menu-overlay.is-active { 
+  visibility: visible; 
+  opacity: 1;
+}
+
+.mobile-nav-links a {
+  font-family: var(--font-label);
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 25px;
   display: block;
-  width: 20px;
-  height: 1px; /* 얇고 세련된 스트로크 */
-  background-color: #fff;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, width 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modern-menu-trigger span:nth-child(2) {
-  width: 14px; /* 비대칭 미니멀 디자인 구현 */
-}
-
-/* 🍔 모바일 햄버거 버튼 active 상호작용 (X자로 교차) */
-.modern-menu-trigger.is-active span:nth-child(1) {
-  transform: translateY(3.5px) rotate(45deg);
-  width: 20px;
-}
-.modern-menu-trigger.is-active span:nth-child(2) {
-  transform: translateY(-3.5px) rotate(-45deg);
-  width: 20px;
-}
+.mobile-menu-overlay.is-active .mobile-nav-links a { opacity: 1; transform: translateY(0); }
 
 /* [Mobile Optimization] */
 @media (max-width: 1100px) {
@@ -439,11 +406,49 @@ h1, h2, h3, h4 {
 
 @media (max-width: 768px) {
 
+.lang-switcher {
+    /* 햄버거 버튼과의 간격을 위해 오른쪽 여백 확보 */
+    margin-right: 60px; 
+    margin-left: 0;
+    gap: 6px;
+    display: flex; /* 가로 나열 유지 */
+    align-items: center;
+  }
+
+  /* 2. 폰트 사이즈 미세 조정 (모바일 가독성) */
+  .lang-btn {
+    font-size: 8px; /* 모바일에서는 조금 더 작게 하여 여백 강조 */
+  }
+
   /* 3. 헤더 전체 여백 조정 */
   .header {
     padding: calc(20px + var(--sat)) 5% 20px;
   }
 
+  /* 4. 기존 nav(메인메뉴)는 모바일에서 숨기기 (햄버거 메뉴가 있으므로) */
+  .header-right .nav {
+    display: none; 
+  }
+
+  .menu-trigger {
+    display: flex !important; /* 모바일에서만 강제로 보여줌 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 7px;
+    
+    position: fixed !important;
+    /* 노치 영역을 계산하여 안전하게 배치 */
+    top: calc(25px + var(--sat)) !important; /* [수정] 햄버거 버튼 위치 Safe Area 대응 */
+    right: 8% !important;
+    
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    
+    /* 오버레이(999999)보다 무조건 위에 있도록 설정 */
+    z-index: 1000006 !important; 
+  }
   
   .header { padding: 25px 8%; }
   .section { padding: 100px 0; }
@@ -474,86 +479,5 @@ h1, h2, h3, h4 {
     text-align: left;
     grid-column: span 2;
     margin-top: 20px;
-  }
-
-
-  .brand-header {
-    padding: calc(20px + env(safe-area-inset-top)) 6% 20px; /* 노치 디자인 세이프 에어리어 */
-  }
-
-  /* 데스크탑 메뉴 숨김 */
-  .desktop-nav {
-    display: none !important;
-  }
-
-  /* 모바일에서 햄버거 버튼 강제 활성화 */
-  .modern-menu-trigger {
-    display: flex !important;
-  }
-
-  /* 다국어 변경창 위치 최적화 (햄버거와 안 겹치게 좌측 마진 확보) */
-  .brand-lang-switcher {
-    margin-right: 45px;
-  }
-  
-  .brand-lang-btn {
-    font-size: 9px;
-  }
-
-  /* 모바일 풀 오버레이 */
-  .modern-mobile-overlay {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100dvh;
-    z-index: 1000005;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-  }
-
-  .modern-mobile-overlay.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .overlay-bg {
-    position: absolute;
-    inset: 0;
-    background: rgba(5, 5, 5, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-
-  .mobile-menu-links {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 35px;
-    z-index: 2;
-    width: 100%;
-  }
-
-  .mobile-menu-links a {
-    font-size: 24px;
-    font-weight: 200;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.4);
-    text-decoration: none;
-    padding: 12px 50px; /* 터치 핫스팟 최적화 */
-    display: block;
-    transition: all 0.3s ease;
-  }
-
-  .mobile-menu-links a.active,
-  .mobile-menu-links a:hover {
-    color: #fff;
-    letter-spacing: 0.2em;
   }
 }
