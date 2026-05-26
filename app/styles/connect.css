@@ -314,4 +314,27 @@
     gap: 20px;
     margin-top: 80px;
   }
+
+
+    /* 햄버거 버튼 */
+  .menu-trigger span {
+    background-color: #fff;
+  }
+  .menu-trigger.is-active span:first-child {
+    background-color:#070707;
+  }
+  .menu-trigger.is-active span:nth-child(3) {
+    background-color:#070707;
+  }
+
+  /* 랭귀지 버튼 */
+  .lang-btn.is-active {
+    color: var(--accent);
+  }
+}
+
+/* 모바일에서 햄버거 버튼 클릭시 텍스트 컬러 */
+body.menu-open .header .logo a {
+  z-index: 1000007 !important; /* 모바일 오버레이(1000000)보다 한 단계 위로 강제 노출 */
+  color: #1a1a1a !important;   /* 밝은 모바일 메뉴판 배경에 맞춰 로고를 다시 어두운 색으로 반전 */
 }

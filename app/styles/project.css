@@ -434,10 +434,6 @@
     background-color:#070707;
   }
 
-  .logo .menu-trigger {
-    color:#070707;
-  }
-
   /* 랭귀지 버튼 */
   .lang-btn.is-active {
     color: var(--accent);
