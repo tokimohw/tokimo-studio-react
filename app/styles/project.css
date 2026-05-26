@@ -424,7 +424,7 @@
   }
 
   /* 햄버거 버튼 */
-  .menu-trigger {
+  .menu-trigger span {
     color: var(--accent);
   }
   /* 랭귀지 버튼 */
