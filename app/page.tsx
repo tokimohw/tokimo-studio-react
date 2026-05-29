@@ -2,42 +2,104 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // 🔥 Next.js 라우팅 감지용 추가
 import { useLanguage } from "./components/Providers";
 import "./styles/index.css";
 
 export default function HomePage() {
   const { t } = useLanguage();
+  const pathname = usePathname(); // 현재 경로 감지
+
+  // 🔥 [해결의 핵심] 슬라이더 강제 초기화 키 (새로고침과 동일한 효과)
+  const [sliderKey, setSliderKey] = useState("init");
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 3;
-
-  // const parallaxRef = useRef<NodeListOf<Element> | null>(null);
   
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // 1. 라우팅 감지 및 DOM 강제 리렌더링
+  useEffect(() => {
+    if (pathname === '/') {
+      // 페이지로 돌아올 때마다 키값을 고유하게 바꿔 슬라이더 HTML을 완전히 파괴 후 재생성
+      setSliderKey(Date.now().toString());
+      setCurrentSlide(0); // 슬라이드 순서도 첫 번째로 깔끔하게 리셋
+    }
+  }, [pathname]);
+
+  // 2. 자동 슬라이드 타이머 (타이머가 꼬이지 않도록 sliderKey를 의존성에 추가)
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 4000);
+    return () => clearInterval(slideTimer);
+  }, [sliderKey, totalSlides]);
+
+
   /* =========================
-     슬라이더 + 패럴랙스 (React스럽게)
+     1. 히어로 슬라이더 (자동 재생 적용)
+  ========================= */
+  useEffect(() => {
+    // 4초마다 다음 슬라이드로 자동 전환
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 4000);
+
+    return () => clearInterval(slideTimer); // 언마운트 시 타이머 청소
+  }, [totalSlides]);
+
+  /* =========================
+     2. Next.js 뒤로가기(BFCache) 버그 완벽 방어
+  ========================= */
+  useEffect(() => {
+    // 메인 페이지('/')로 진입하거나 뒤로가기로 돌아왔을 때
+    if (pathname === '/') {
+      const timer = setTimeout(() => {
+        // 강제로 리사이즈 이벤트를 발생시켜 CSS 렌더링 및 슬라이더 크기 재계산
+        window.dispatchEvent(new Event("resize"));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
+
+  // (기존 pageshow 로직도 브라우저 네이티브 뒤로가기를 위해 2차 방어선으로 유지)
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
+  }, []);
+
+  /* =========================
+     3. 패럴랙스 (화면 기준 최적화)
   ========================= */
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return; // 🔥 방어 코드 (여기 위치 중요)
+    if (!container) return;
 
-    // 🔥 parallax 대상 미리 가져오기
     const items = container.querySelectorAll('[data-speed]');
+    let ticking = false;
 
-    // 🔥 실제 움직이는 함수
     const updateParallax = () => {
-      const scrolled = window.scrollY;
+      // 뷰포트 중앙을 기준으로 패럴랙스 반응 위치를 개선
+      const windowCenter = window.innerHeight / 2;
 
       items.forEach((item) => {
-        const speed = parseFloat(item.getAttribute('data-speed') || "0.05");
-        const yPos = -(scrolled * speed);
-        (item as HTMLElement).style.transform = `translate3d(0, ${yPos}px, 0)`;
+        const el = item as HTMLElement;
+        const rect = el.getBoundingClientRect();
+        
+        // 요소의 중앙과 화면 중앙 사이의 거리 계산
+        const distFromCenter = windowCenter - (rect.top + rect.height / 2);
+        const speed = parseFloat(el.getAttribute('data-speed') || "0.05");
+        
+        // 화면에 진입했을 때 자연스럽게 엇갈리도록 계산
+        const yPos = distFromCenter * speed; 
+        el.style.transform = `translate3d(0, ${-yPos}px, 0)`;
       });
     };
-
-    // 🔥 requestAnimationFrame 적용
-    let ticking = false;
 
     const handleScroll = () => {
       if (!ticking) {
@@ -49,7 +111,9 @@ export default function HomePage() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true }); // passive로 스크롤 성능 향상
+    // 초기 로드 시 1회 강제 실행하여 위치 정렬
+    updateParallax();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -67,14 +131,15 @@ export default function HomePage() {
             <div className="hero-bg-text">CRAFTSMANSHIP</div>
 
             {/* 슬라이더 */}
-            <div className="hero-slider">
+            <div className="hero-slider" key={sliderKey}>
               {[1, 2, 3].map((num, idx) => (
                 <img
                   key={idx}
                   src={`/images/index/hero-cover${num}.png`}
                   alt={`TOKIMO Cover ${num}`}
-                  className={`parallax-img slide ${
-                    currentSlide === idx ? "active" : ""
+                  // 🔥 변경됨: slide -> tokimo-hero-slide, active -> is-active
+                  className={`parallax-img tokimo-hero-slide ${
+                    currentSlide === idx ? "is-active" : ""
                   }`}
                 />
               ))}
@@ -85,8 +150,9 @@ export default function HomePage() {
               {[0, 1, 2].map((idx) => (
                 <button
                   key={idx}
+                  // 🔥 변경됨: active -> is-active
                   className={`dot ${
-                    currentSlide === idx ? "active" : ""
+                    currentSlide === idx ? "is-active" : ""
                   }`}
                   onClick={() => setCurrentSlide(idx)}
                 />
@@ -238,8 +304,6 @@ export default function HomePage() {
 /* =========================
    컴포넌트 분리 (핵심)
 ========================= */
-
-// 1. ProjectCard가 사용하는 데이터들의 타입을 명확하게 정의합니다.
 interface ProjectCardProps {
   href: string;
   img: string;
@@ -247,10 +311,9 @@ interface ProjectCardProps {
   desc: string;
   status: string;
   meta: string;
-  t: (key: string) => string; // 번역 함수는 문자열을 받아 문자열을 반환하는 타입으로 지정합니다.
+  t: (key: string) => string; 
 }
 
-// 2. 정의한 interface를 컴포넌트에 연결합니다. (: any 대신 : ProjectCardProps)
 function ProjectCard({
   href,
   img,

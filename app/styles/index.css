@@ -55,7 +55,7 @@ body {
   z-index: 1;
 }
 
-.hero-slider .slide {
+.hero-slider .tokimo-hero-slide {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -66,7 +66,7 @@ body {
   filter: brightness(0.6) contrast(1.1);
 }
 
-.hero-slider .slide.active {
+.hero-slider .tokimo-hero-slide.is-active {
   opacity: 1;
   transform: scale(1.05);
 }
@@ -178,7 +178,7 @@ body {
   transition: var(--transition-vogue);
 }
 
-.dot.active {
+.dot.is-active {
   opacity: 1;
   transform: scale(1.3);
 }
