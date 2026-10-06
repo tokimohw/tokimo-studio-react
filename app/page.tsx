@@ -2,76 +2,75 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation"; // 🔥 Next.js 라우팅 감지용 추가
 import { useLanguage } from "./components/Providers";
 import "./styles/index.css";
 
 export default function HomePage() {
   const { t } = useLanguage();
-  const pathname = usePathname();
+  const pathname = usePathname(); // 현재 경로 감지
 
-  // 🔥 슬라이더 강제 초기화 키
-  const [sliderKey, setSliderKey] = useState(0);
+  // 🔥 [해결의 핵심] 슬라이더 강제 초기화 키 (새로고침과 동일한 효과)
+  const [sliderKey, setSliderKey] = useState("init");
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 3;
   
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // =========================================================
-  // 1. 메인 페이지(/)에 진입하거나 다른 페이지에서
-  //    메인 페이지로 돌아왔을 때 슬라이더 초기화
-  // =========================================================
+  // 1. 라우팅 감지 및 DOM 강제 리렌더링
   useEffect(() => {
-    if (pathname === "/") {
-      setSliderKey((prev) => prev + 1);
-      setCurrentSlide(0);
+    if (pathname === '/') {
+      // 페이지로 돌아올 때마다 키값을 고유하게 바꿔 슬라이더 HTML을 완전히 파괴 후 재생성
+      setSliderKey(Date.now().toString());
+      setCurrentSlide(0); // 슬라이드 순서도 첫 번째로 깔끔하게 리셋
     }
   }, [pathname]);
 
-  // =========================================================
-  // 2. 자동 슬라이드
-  //    기존의 중복 setInterval 2개를 하나로 통합
-  // =========================================================
+  // 2. 자동 슬라이드 타이머 (타이머가 꼬이지 않도록 sliderKey를 의존성에 추가)
   useEffect(() => {
-    if (pathname !== "/") return;
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 4000);
+    return () => clearInterval(slideTimer);
+  }, [sliderKey, totalSlides]);
 
-    const slideTimer = window.setInterval(() => {
+
+  /* =========================
+     1. 히어로 슬라이더 (자동 재생 적용)
+  ========================= */
+  useEffect(() => {
+    // 4초마다 다음 슬라이드로 자동 전환
+    const slideTimer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
     }, 4000);
 
-    return () => {
-      window.clearInterval(slideTimer);
-    };
+    return () => clearInterval(slideTimer); // 언마운트 시 타이머 청소
+  }, [totalSlides]);
+
+  /* =========================
+     2. Next.js 뒤로가기(BFCache) 버그 완벽 방어
+  ========================= */
+  useEffect(() => {
+    // 메인 페이지('/')로 진입하거나 뒤로가기로 돌아왔을 때
+    if (pathname === '/') {
+      const timer = setTimeout(() => {
+        // 강제로 리사이즈 이벤트를 발생시켜 CSS 렌더링 및 슬라이더 크기 재계산
+        window.dispatchEvent(new Event("resize"));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
   }, [pathname]);
 
-  // =========================================================
-  // 3. 브라우저 뒤로가기 / 앞으로가기 / BFCache 복원 대응
-  //
-  //    트랙패드 뒤로가기
-  //    브라우저 뒤로가기 버튼
-  //    키보드 뒤로가기
-  //
-  //    어떤 방식이든 history를 통해 메인으로 복귀하면
-  //    슬라이더 상태를 다시 초기화
-  // =========================================================
+  // (기존 pageshow 로직도 브라우저 네이티브 뒤로가기를 위해 2차 방어선으로 유지)
   useEffect(() => {
     const handlePageShow = (event: PageTransitionEvent) => {
-      // BFCache에서 복원된 경우에만 추가 초기화
-      if (!event.persisted) return;
-
-      // 현재 메인 페이지인 경우에만 슬라이더 초기화
-      if (window.location.pathname === "/") {
-        setCurrentSlide(0);
-        setSliderKey((prev) => prev + 1);
+      if (event.persisted) {
+        window.location.reload();
       }
     };
-
-    window.addEventListener("pageshow", handlePageShow);
-
-    return () => {
-      window.removeEventListener("pageshow", handlePageShow);
-    };
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
   }, []);
 
   /* =========================
@@ -112,7 +111,7 @@ export default function HomePage() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true }); // passive로 스크롤 성능 향상
     // 초기 로드 시 1회 강제 실행하여 위치 정렬
     updateParallax();
 
@@ -138,8 +137,7 @@ export default function HomePage() {
                   key={idx}
                   src={`/images/index/hero-cover${num}.png`}
                   alt={`TOKIMO Cover ${num}`}
-                  // 🔥 slide -> tokimo-hero-slide
-                  // 🔥 active -> is-active
+                  // 🔥 변경됨: slide -> tokimo-hero-slide, active -> is-active
                   className={`parallax-img tokimo-hero-slide ${
                     currentSlide === idx ? "is-active" : ""
                   }`}
@@ -152,8 +150,7 @@ export default function HomePage() {
               {[0, 1, 2].map((idx) => (
                 <button
                   key={idx}
-                  type="button"
-                  aria-label={`Go to slide ${idx + 1}`}
+                  // 🔥 변경됨: active -> is-active
                   className={`dot ${
                     currentSlide === idx ? "is-active" : ""
                   }`}
